@@ -1,0 +1,22 @@
+project:
+  group: slipper
+  name: slipper
+
+service:
+  port: 8810
+  context-path: /slipper
+
+database:
+  ip: 139.196.182.46
+  port: 3306
+  name: blog
+  username: root
+  password: ll5271211314
+
+druid:
+  url-pattern: /druid/*
+  username: gumingchen
+  password: gumingchen
+
+token:
+  expire: 3600
