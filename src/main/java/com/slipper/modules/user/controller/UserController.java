@@ -1,8 +1,8 @@
 package com.slipper.modules.user.controller;
 
-import com.slipper.core.common.utils.R;
-import com.slipper.core.modules.user.model.vo.UserPageVo;
-import com.slipper.core.modules.user.service.UserService;
+import com.slipper.common.utils.R;
+import com.slipper.modules.user.model.vo.UserPageVo;
+import com.slipper.modules.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

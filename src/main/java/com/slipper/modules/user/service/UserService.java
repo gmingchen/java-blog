@@ -1,10 +1,10 @@
 package com.slipper.modules.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.slipper.core.common.utils.RPage;
-import com.slipper.core.modules.user.model.dto.UserBasicDto;
-import com.slipper.core.modules.user.entity.UserEntity;
-import com.slipper.core.modules.user.model.vo.UserPageVo;
+import com.slipper.common.utils.RPage;
+import com.slipper.modules.user.entity.UserEntity;
+import com.slipper.modules.user.model.dto.UserBasicDto;
+import com.slipper.modules.user.model.vo.UserPageVo;
 
 /**
  * 用户

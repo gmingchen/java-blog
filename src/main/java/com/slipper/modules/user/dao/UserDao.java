@@ -3,8 +3,8 @@ package com.slipper.modules.user.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.slipper.core.modules.user.model.dto.UserBasicDto;
-import com.slipper.core.modules.user.entity.UserEntity;
+import com.slipper.modules.user.entity.UserEntity;
+import com.slipper.modules.user.model.dto.UserBasicDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
