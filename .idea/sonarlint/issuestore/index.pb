@@ -42,8 +42,6 @@ l
 i
 9src/main/java/com/slipper/modules/AbstractController.java,7\3\73079103e89abaded37e3020023fed12fe22d210
 m
-=src/main/java/com/slipper/modules/user/entity/UserEntity.java,a\2\a2def7458af5123713dec8ce00f6368f92439186
-m
 =src/main/java/com/slipper/modules/login/model/vo/LoginVo.java,a\d\ad53a6f185fd39ba01b78e0006fa83727463ff3c
 p
 @src/main/java/com/slipper/modules/login/model/vo/RegisterVo.java,8\c\8c4fe727b721e0cd95c7ffcf41d96d492ba4bddf

@@ -41,6 +41,7 @@ public class UserController {
      * @apiSuccessExample 响应结果示例
      * {
      *     code: 0,
+     *     status: 'success',
      *     message: '成功!',
      *     data: {
      *         current: 1, // 当前页
@@ -80,6 +81,7 @@ public class UserController {
      * @apiSuccessExample 响应结果示例
      * {
      *     code: 0,
+     *     status: 'success',
      *     message: '成功!',
      *     data: {
      *         id: '', // ID

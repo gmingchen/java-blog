@@ -21,8 +21,6 @@ import java.util.Date;
  * @date 1995-08-30 00:00:00
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName(value = "user")
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
