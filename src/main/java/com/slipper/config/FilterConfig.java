@@ -4,6 +4,7 @@ import com.slipper.common.xss.XssFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 /**
  * Filter配置
@@ -15,20 +16,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfig {
 
-//    /**
-//     * shiro 过滤
-//     * @return
-//     */
-//    @Bean
-//    public FilterRegistrationBean shiroFilterRegistration() {
-//        FilterRegistrationBean registration = new FilterRegistrationBean();
-//        registration.setFilter(new DelegatingFilterProxy("shiroFilter"));
-//        registration.addInitParameter("targetFilterLifecycle", "true");
-//        registration.setEnabled(true);
-//        registration.setOrder(Integer.MAX_VALUE - 1);
-//        registration.addUrlPatterns("/*");
-//        return registration;
-//    }
+    /**
+     * shiro 过滤
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean shiroFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new DelegatingFilterProxy("shiroFilter"));
+        registration.addInitParameter("targetFilterLifecycle", "true");
+        registration.setEnabled(true);
+        registration.setOrder(Integer.MAX_VALUE - 1);
+        registration.addUrlPatterns("/*");
+        return registration;
+    }
 
     /**
      * xss 过滤

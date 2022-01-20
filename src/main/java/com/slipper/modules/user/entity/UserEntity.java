@@ -29,7 +29,7 @@ public class UserEntity implements Serializable {
 
     @NotNull(message = "ID不能为空", groups = Update.class)
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
     /**
      * 用户名
      */

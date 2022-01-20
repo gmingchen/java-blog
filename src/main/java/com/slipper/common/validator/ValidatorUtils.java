@@ -2,6 +2,7 @@ package com.slipper.common.validator;
 
 
 import com.slipper.common.exception.RunException;
+import com.slipper.common.utils.Constant;
 import com.slipper.config.ValidatorConfig;
 
 import javax.validation.ConstraintViolation;

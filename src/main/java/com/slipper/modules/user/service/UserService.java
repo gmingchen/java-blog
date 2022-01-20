@@ -22,5 +22,19 @@ public interface UserService extends IService<UserEntity> {
      */
     RPage<UserBasicDto> queryPage(UserPageVo userPageVo);
 
+    /**
+     * 查询用户基础信息
+     * @param id 用户ID
+     * @return
+     */
+    UserBasicDto queryInfo(int id);
+
+    /**
+     * 用户名查询用户信息
+     * @param username 用户名
+     * @return
+     */
+    UserEntity queryInfoByUsername(String username);
+
 }
 
