@@ -23,13 +23,13 @@
         FROM user
         <where>
             <if test="name != null or name !=''">
-                username LIKE "%${name}%" OR nickname LIKE "%${name}%"
+                AND (username LIKE "%${name}%" OR nickname LIKE "%${name}%")
             </if>
             <if test="start != null and start != ''">
-                AND created_at <![CDATA[ >= ]]> #{start}
+                AND date_format(created_at,'%Y-%m-%d') <![CDATA[ >= ]]> date_format(#{start},'%Y-%m-%d')
             </if>
             <if test="end != null and end != ''">
-                AND created_at <![CDATA[ <= ]]> #{end}
+                AND date_format(created_at,'%Y-%m-%d') <![CDATA[ <= ]]> date_format(#{end},'%Y-%m-%d')
             </if>
         </where>
         ORDER BY author DESC, created_at DESC
