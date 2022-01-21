@@ -27,8 +27,6 @@ f
 6src/main/java/com/slipper/common/utils/ShiroUtils.java,9\c\9c8547bf818442ba21c85fedd69b7ea4ea89bdbb
 s
 Csrc/main/java/com/slipper/common/exception/RunExceptionHandler.java,0\7\073741c3ab3bb89d76ba0df4b403722cbe4c8ad7
-d
-4src/main/java/com/slipper/common/utils/Constant.java,c\3\c3cf8894da91bea63b865ceab6ac39ffa5c32410
 p
 @src/main/java/com/slipper/modules/shiro/filter/OAuth2Filter.java,e\a\ea904591518b2858cd0efdde45631c1c40b1491f
 d

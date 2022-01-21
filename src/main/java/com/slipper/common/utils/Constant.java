@@ -11,7 +11,7 @@ public class Constant {
     /**
      * token 键值
      */
-    public static final String TOKEN_KEY = "blogToken";
+    public static final String TOKEN_KEY = "token";
 
     /**
      * 状态码 异常信息
