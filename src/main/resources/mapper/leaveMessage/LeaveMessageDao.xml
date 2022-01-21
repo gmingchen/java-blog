@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.slipper.modules.leaveMessage.dao.LeaveMessageDao">
+
+    <resultMap type="com.slipper.modules.leaveMessage.entity.LeaveMessageEntity" id="leaveMessageMap">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+<!--    IPage<LeaveMessageDto> queryPage(Page<LeaveMessageDto> page, @Param("start") String start, @Param("end") String end, @Param("name") String name);-->
+    <select id="queryPage" resultType="com.slipper.modules.leaveMessage.model.dto.LeaveMessageDto">
+        SELECT lm.id, lm.content, lm.user_id, lm.created_at,
+                u.username, u.nickname, u.avatar, u.sex
+        FROM leave_message AS lm
+        LEFT JOIN user as u on u.id = lm.user_id
+        <where>
+            lm.deleted = 0
+            <if test="name != null or name !=''">
+                AND (u.username LIKE "%${name}%" OR u.nickname LIKE "%${name}%")
+            </if>
+            <if test="start != null and start != ''">
+                AND date_format(lm.created_at,'%Y-%m-%d') <![CDATA[ >= ]]> date_format(#{start},'%Y-%m-%d')
+            </if>
+            <if test="end != null and end != ''">
+                AND date_format(lm.created_at,'%Y-%m-%d') <![CDATA[ <= ]]> date_format(#{end},'%Y-%m-%d')
+            </if>
+        </where>
+        ORDER BY lm.created_at DESC
+    </select>
+</mapper>

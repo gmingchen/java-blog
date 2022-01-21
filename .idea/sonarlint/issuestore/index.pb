@@ -11,8 +11,6 @@ n
 >src/main/java/com/slipper/modules/shiro/token/OAuth2Token.java,7\6\76cf9286485ea32af0c6f9ae684b152aa4f6fe90
 b
 2src/main/java/com/slipper/config/FilterConfig.java,6\4\64a414aa7428c18318e766f97f3c348d3fb3897e
-g
-7src/main/java/com/slipper/config/MybatisPlusConfig.java,4\7\47a5a02169a475a75e6e81951a352e09fe6ba82f
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 b
@@ -21,8 +19,6 @@ z
 Jsrc/main/java/com/slipper/modules/shiro/service/impl/ShiroServiceImpl.java,3\f\3f2009d2ebf6b311d66edb0cc401d2885b89fc23
 e
 5src/main/java/com/slipper/config/ValidatorConfig.java,b\f\bfabea7d74ec0746dc8a438674bde4e9b1bb2dc0
-r
-Bsrc/main/java/com/slipper/modules/user/model/dto/UserBasicDto.java,a\7\a78380b99a4140cf077d5b516346e924dbcb3ad4
 f
 6src/main/java/com/slipper/common/utils/ShiroUtils.java,9\c\9c8547bf818442ba21c85fedd69b7ea4ea89bdbb
 s
@@ -33,8 +29,6 @@ d
 4src/main/java/com/slipper/common/utils/JwtUtils.java,b\e\be1b5c20a38566c192334c2fc351b441847485f0
 q
 Asrc/main/java/com/slipper/modules/shiro/service/ShiroService.java,c\6\c67381311e14e8bd99f068d360e7a505cd3eb194
-a
-1src/main/java/com/slipper/config/ShiroConfig.java,c\9\c945ce7e18131aa0eeaf1826e2bc59a405224fd4
 l
 <src/main/java/com/slipper/common/exception/RunException.java,1\0\100bcffa2556fcd149c9a1fc67f1b5cb87260f5e
 i
@@ -43,8 +37,6 @@ m
 =src/main/java/com/slipper/modules/login/model/vo/LoginVo.java,a\d\ad53a6f185fd39ba01b78e0006fa83727463ff3c
 p
 @src/main/java/com/slipper/modules/login/model/vo/RegisterVo.java,8\c\8c4fe727b721e0cd95c7ffcf41d96d492ba4bddf
-a
-1src/main/java/com/slipper/common/vo/StatusVo.java,6\6\66255a9f8eda5364d280b2eef2900caa77b8ebda
 q
 Asrc/main/java/com/slipper/modules/login/service/LoginService.java,f\4\f48c3c6606cf7bf7700a98923ccc1fb7f3ad3de5
 z
@@ -53,3 +45,21 @@ w
 Gsrc/main/java/com/slipper/modules/login/controller/LoginController.java,5\3\533af6eb7351ba9504581ec556aa7720bd72f3b8
 a
 1src/main/java/com/slipper/common/utils/RPage.java,2\3\23694e8a0767bbc24e63eabe04c1e26a853f5e07
+o
+?src/main/java/com/slipper/modules/user/model/vo/UserPageVo.java,8\4\84ec51ff4e638f55a2b1db3f8e13d16ed954a00d
+o
+?src/main/java/com/slipper/modules/user/service/UserService.java,9\6\96e2d9264df828239799d61c1bdc03c4f1dc2e2e
+n
+>src/main/java/com/slipper/modules/shiro/realm/OAuth2Realm.java,2\6\267733f16a8092efdb030d4e2aaeafcda6d56d79
+m
+=src/main/java/com/slipper/modules/tag/model/vo/TagPageVo.java,c\3\c34bdb28f9ecc830d2ad26a28cf415f8c6d7cae6
+d
+4src/main/java/com/slipper/common/utils/Constant.java,c\3\c3cf8894da91bea63b865ceab6ac39ffa5c32410
+o
+?src/main/java/com/slipper/modules/category/dao/CategoryDao.java,1\6\16e20f25f41ab302ce03a7f81d92f4e4e8f6a5a1
+~
+Nsrc/main/java/com/slipper/modules/banner/service/impl/CategoryServiceImpl.java,0\5\05ecc9285e2a577ac384173db6be55d34e742f27
+{
+Ksrc/main/java/com/slipper/modules/banner/controller/CategoryController.java,3\8\3829fa2e7178040472a8cbaf549298f624d54abd
+w
+Gsrc/main/java/com/slipper/modules/category/model/vo/CategoryPageVo.java,9\e\9ef8ea7775793613a307f1f511a2982f8e964ac2

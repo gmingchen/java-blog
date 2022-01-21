@@ -12,8 +12,6 @@ import com.slipper.modules.user.model.vo.UserPageVo;
 import com.slipper.modules.user.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author gumingchen
  */
@@ -23,7 +21,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
     @Override
     public RPage<UserBasicDto> queryPage(UserPageVo userPageVo) {
         Page<UserBasicDto> page = new Query<UserBasicDto>().getPage(userPageVo.getCurrent(), userPageVo.getSize());
-        return new RPage<>(baseMapper.queryPage(page, userPageVo.getStart(), userPageVo.getEnd(), userPageVo.getName()));
+        return new RPage<>(
+                baseMapper.queryPage(
+                        page,
+                        userPageVo.getStart(),
+                        userPageVo.getEnd(),
+                        userPageVo.getName()
+                )
+        );
     }
 
     @Override

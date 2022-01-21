@@ -1,11 +1,11 @@
-package com.slipper.modules.tag.controller;
+package com.slipper.modules.category.controller;
 
 import com.slipper.common.utils.R;
 import com.slipper.common.validator.group.Create;
 import com.slipper.common.validator.group.Update;
-import com.slipper.modules.tag.entity.TagEntity;
-import com.slipper.modules.tag.model.vo.TagPageVo;
-import com.slipper.modules.tag.service.TagService;
+import com.slipper.modules.category.entity.CategoryEntity;
+import com.slipper.modules.category.service.CategoryService;
+import com.slipper.modules.category.model.vo.CategoryPageVo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,24 +16,24 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 标签
+ * 分类
  *
  * @author gumingchen
  * @email 1240235512@qq.com
  * @date 1995-08-30 00:00:00
  */
 @RestController
-public class TagController {
+public class CategoryController {
     @Resource
-    private TagService tagService;
+    private CategoryService categoryService;
 
     /**
      * 分页列表
      *
-     * @api {GET} /slipper/console/tag/page page
-     * @apiDescription 标签分页列表
+     * @api {GET} /slipper/console/category/page page
+     * @apiDescription 分类分页列表
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup Category
      * @apiName page
      * @apiParamExample 请求参数示例
      * {
@@ -60,18 +60,18 @@ public class TagController {
      *     }
      * }
      */
-    @GetMapping("/console/tag/page")
-    public R page(TagPageVo tagPageVo){
-        return R.success(tagService.queryPage(tagPageVo));
+    @GetMapping("/console/category/page")
+    public R page(CategoryPageVo categoryPageVo){
+        return R.success(categoryService.queryPage(categoryPageVo));
     }
 
     /**
      * 信息
      *
-     * @api {GET} /slipper/console/tag/info info
-     * @apiDescription 标签信息
+     * @api {GET} /slipper/console/category/info info
+     * @apiDescription 分类信息
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup Category
      * @apiName info
      * @apiParamExample 请求参数示例
      * {
@@ -90,18 +90,18 @@ public class TagController {
      *     }
      * }
      */
-    @GetMapping("/console/tag/info")
+    @GetMapping("/console/category/info")
     public R info(Integer id){
-        return R.success(tagService.getById(id));
+        return R.success(categoryService.getById(id));
     }
 
     /**
      * 新增
      *
-     * @api {POST} /slipper/console/tag/create create
-     * @apiDescription 标签新增
+     * @api {POST} /slipper/console/category/create create
+     * @apiDescription 分类新增
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup Category
      * @apiName create
      * @apiParamExample 请求参数示例
      * {
@@ -114,19 +114,19 @@ public class TagController {
      *     message: '成功!'
      * }
      */
-    @PostMapping("/console/tag/create")
-    public R create(@RequestBody @Validated(Create.class) TagEntity tagEntity){
-        tagService.create(tagEntity);
+    @PostMapping("/console/category/create")
+    public R create(@RequestBody @Validated(Create.class) CategoryEntity categoryEntity){
+        categoryService.create(categoryEntity);
         return R.success();
     }
 
     /**
      * 编辑
      *
-     * @api {POST} /slipper/console/tag/update update
-     * @apiDescription 标签编辑
+     * @api {POST} /slipper/console/category/update update
+     * @apiDescription 分类编辑
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup Category
      * @apiName update
      * @apiParamExample 请求参数示例
      * {
@@ -140,19 +140,19 @@ public class TagController {
      *     message: '成功!'
      * }
      */
-    @PostMapping("/console/tag/update")
-    public R update(@RequestBody @Validated(Update.class) TagEntity tagEntity){
-        tagService.update(tagEntity);
+    @PostMapping("/console/category/update")
+    public R update(@RequestBody @Validated(Update.class) CategoryEntity categoryEntity){
+        categoryService.update(categoryEntity);
         return R.success();
     }
 
     /**
      * 批量删除
      *
-     * @api {POST} /slipper/console/tag/delete delete
-     * @apiDescription 标签批量删除
+     * @api {POST} /slipper/console/category/delete delete
+     * @apiDescription 分类批量删除
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup Category
      * @apiName delete
      * @apiParamExample 请求参数示例
      * {
@@ -165,19 +165,19 @@ public class TagController {
      *     message: '成功!'
      * }
      */
-    @PostMapping("/console/tag/delete")
+    @PostMapping("/console/category/delete")
     public R delete(@RequestBody List<Integer> ids) {
-        tagService.removeBatchByIds(ids);
+        categoryService.removeBatchByIds(ids);
         return R.success();
     }
 
     /**
      * 所有列表
      *
-     * @api {GET} /slipper/console/tag/list
-     * @apiDescription 所有标签列表
+     * @api {GET} /slipper/console/category/list
+     * @apiDescription 所有分类列表
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup Category
      * @apiName list
      * @apiParamExample 请求参数示例
      * {
@@ -195,9 +195,9 @@ public class TagController {
      *     }
      * }
      */
-    @GetMapping("/console/tag/list")
+    @GetMapping("/console/category/list")
     public R list(){
-        return R.success(tagService.list());
+        return R.success(categoryService.list());
     }
 
 }

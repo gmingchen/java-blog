@@ -15,11 +15,11 @@ import com.slipper.modules.tag.model.vo.TagPageVo;
 public interface TagService extends IService<TagEntity> {
 
     /**
-     * 查询系统管理员
-     * @param userPageVo 分页参数
+     * 分页
+     * @param tagPageVo 分页参数
      * @return
      */
-    RPage<TagEntity> queryPage(TagPageVo userPageVo);
+    RPage<TagEntity> queryPage(TagPageVo tagPageVo);
 
     /**
      * 新增

@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.slipper.common.utils.Regular;
 import com.slipper.common.validator.group.Create;
 import com.slipper.common.validator.group.Update;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -50,9 +48,10 @@ public class UserEntity implements Serializable {
     @NotBlank(message = "昵称不能为空", groups = {Create.class, Update.class})
     private String nickname;
     /**
-     * 性别：0-女 1-男 0-保密
+     * 性别：0-女 1-男 2-保密
      */
-    @Digits(integer = 0, fraction = 2, message = "请选择正确的性别")
+    @Min(value = 0, message = "请选择正确的性别")
+    @Max(value = 2, message = "请选择正确的性别")
     private Integer sex;
     /**
      * 头像

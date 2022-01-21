@@ -14,7 +14,7 @@ import java.util.Date;
 public class UserBasicDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private Integer id;
     /**
      * 用户名
      */
@@ -26,7 +26,7 @@ public class UserBasicDto implements Serializable {
     /**
      * 性别：0-女 1-男 0-保密
      */
-    private int sex;
+    private Integer sex;
     /**
      * 头像
      */
@@ -38,11 +38,11 @@ public class UserBasicDto implements Serializable {
     /**
      * 是否是作者 0-否 1-是
      */
-    private int author;
+    private Integer author;
     /**
      * 状态 0：禁用 1：正常
      */
-    private int status;
+    private Integer status;
     /**
      * 创建时间
      */

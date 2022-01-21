@@ -1,4 +1,4 @@
-package com.slipper.modules.tag.entity;
+package com.slipper.modules.category.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 标签
+ * 分类
  *
  * @author gumingchen
  * @email 1240235512@qq.com
@@ -24,7 +24,7 @@ import java.util.Date;
  */
 @Data
 @TableName(value = "tag")
-public class TagEntity implements Serializable {
+public class CategoryEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotNull(message = "ID不能为空", groups = Update.class)

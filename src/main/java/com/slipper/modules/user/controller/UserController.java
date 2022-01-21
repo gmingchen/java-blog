@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- * 用户侧
+ * 用户
  *
  * @author gumingchen
  * @email 1240235512@qq.com
