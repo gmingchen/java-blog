@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.slipper.modules.leaveMessage.dao.LeaveMessageReplyDao">
+
+    <resultMap type="com.slipper.modules.leaveMessage.entity.LeaveMessageReplyEntity" id="leaveMessageReplyMap">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="leaveMessageId" column="leave_message_id"/>
+        <result property="fromUserId" column="from_user_id"/>
+        <result property="toUserId" column="to_user_id"/>
+        <result property="leaveMessageReplyId" column="leave_message_reply_id"/>
+        <result property="type" column="type"/>
+        <result property="type" column="type"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+<!--    IPage<LeaveMessageReplyDto> queryPage(Page<LeaveMessageReplyDto> page, @Param("id") int id);-->
+    <select id="queryPage" resultType="com.slipper.modules.leaveMessage.model.dto.LeaveMessageReplyDto">
+        SELECT lmr.id, lmr.content, lmr.leave_message_id, lmr.leave_message_reply_id, lmr.type, lmr.created_at,
+               fu.id AS from_user_id, fu.username AS from_username, fu.nickname AS from_nickname, fu.avatar AS from_avatar, fu.sex AS from_sex,
+               tu.id AS to_user_id, tu.username AS to_username, tu.nickname AS to_nickname, tu.avatar AS to_avatar, fu.sex AS to_sex
+        FROM leave_message__reply AS lmr
+        LEFT JOIN leave_message AS lm
+        LEFT JOIN user AS fu
+        LEFT JOIN user AS tu
+        WHERE lmr.deleted = 0 AND lmr.leave_message_id = #{id}
+        ORDER BY lmr.created_at DESC
+    </select>
+</mapper>

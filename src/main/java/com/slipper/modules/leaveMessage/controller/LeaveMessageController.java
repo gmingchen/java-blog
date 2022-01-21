@@ -29,7 +29,7 @@ public class LeaveMessageController {
      * @api {GET} /slipper/console/leaveMessage/page page
      * @apiDescription 留言分页列表
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup LeaveMessage
      * @apiName page
      * @apiParamExample 请求参数示例
      * {
@@ -71,7 +71,7 @@ public class LeaveMessageController {
      * @api {POST} /slipper/console/leaveMessage/delete delete
      * @apiDescription 留言批量删除
      * @apiVersion 1.0.0
-     * @apiGroup Tag
+     * @apiGroup LeaveMessage
      * @apiName delete
      * @apiParamExample 请求参数示例
      * {
