@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * @author gumingchen
  */
-@Service("userService")
+@Service("tagService")
 public class TagServiceImpl extends ServiceImpl<TagDao, TagEntity> implements TagService {
 
     @Override
