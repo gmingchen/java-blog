@@ -16,7 +16,7 @@
         SELECT lm.id, lm.content, lm.user_id, lm.created_at,
                 u.username, u.nickname, u.avatar, u.sex
         FROM leave_message AS lm
-        LEFT JOIN user as u on u.id = lm.user_id
+        LEFT JOIN user AS u on u.id = lm.user_id
         <where>
             lm.deleted = 0
             <if test="name != null or name !=''">

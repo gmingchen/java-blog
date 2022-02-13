@@ -1,10 +1,14 @@
 package com.slipper.modules.leaveMessage.controller;
 
+import com.slipper.common.utils.Constant;
 import com.slipper.common.utils.R;
+import com.slipper.modules.AbstractController;
+import com.slipper.modules.leaveMessage.entity.LeaveMessageReplyEntity;
 import com.slipper.modules.leaveMessage.model.vo.LeaveMessagePageVo;
 import com.slipper.modules.leaveMessage.model.vo.LeaveMessageReplyPageVo;
 import com.slipper.modules.leaveMessage.service.LeaveMessageReplyService;
 import com.slipper.modules.leaveMessage.service.LeaveMessageService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +25,7 @@ import java.util.List;
  * @date 1995-08-30 00:00:00
  */
 @RestController
-public class LeaveMessageReplyController {
+public class LeaveMessageReplyController extends AbstractController {
     @Resource
     private LeaveMessageReplyService leaveMessageReplyService;
 
@@ -73,6 +77,39 @@ public class LeaveMessageReplyController {
     @GetMapping("/console/leaveMessageReply/page")
     public R page(LeaveMessageReplyPageVo leaveMessageReplyPageVo){
         return R.success(leaveMessageReplyService.queryPage(leaveMessageReplyPageVo));
+    }
+
+    /**
+     * 留言回复
+     *
+     * @api {POST} /slipper/console/leaveMessageReply/create create
+     * @apiDescription 留言回复
+     * @apiVersion 1.0.0
+     * @apiGroup LeaveMessageReply
+     * @apiName create
+     * @apiParamExample 请求参数示例
+     * {
+     *     content: '', // 内容
+     *     leave_message_id: '', // 留言ID
+     *     to_user_id: '', // 目标用户的ID
+     *     type: '', // 类型 0-回复 1-回复的回复
+     *     leave_message_reply_id: '' // 回复的ID type为 1 时须该字段
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @PostMapping("/console/leaveMessageReply/create")
+    public R create(@RequestBody @Validated LeaveMessageReplyEntity leaveMessageReplyEntity) {
+        if (leaveMessageReplyEntity.getType() == 1 && leaveMessageReplyEntity.getLeaveMessageReplyId() == null) {
+            return R.error(Constant.VERIFICATION_ERROR_CODE, Constant.VERIFICATION_ERROR + "leave_message_reply_id-留言ID不能为空");
+        }
+        leaveMessageReplyEntity.setFromUserId(getUserId());
+        leaveMessageReplyService.create(leaveMessageReplyEntity);
+        return R.success();
     }
 
     /**

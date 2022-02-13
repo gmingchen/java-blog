@@ -13,6 +13,8 @@ import com.slipper.modules.leaveMessage.model.vo.LeaveMessageReplyPageVo;
 import com.slipper.modules.leaveMessage.service.LeaveMessageReplyService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @author gumingchen
  */
@@ -30,6 +32,12 @@ public class LeaveMessageReplyServiceImpl extends ServiceImpl<LeaveMessageReplyD
                         leaveMessageReplyPageVo.getId()
                 )
         );
+    }
+
+    @Override
+    public void create(LeaveMessageReplyEntity leaveMessageReplyEntity) {
+        leaveMessageReplyEntity.setCreatedAt(new Date());
+        this.save(leaveMessageReplyEntity);
     }
 
 }

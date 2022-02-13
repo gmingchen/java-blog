@@ -29,7 +29,6 @@ import java.util.Date;
 public class LeaveMessageReplyEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "ID不能为空")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
@@ -64,6 +63,7 @@ public class LeaveMessageReplyEntity implements Serializable {
      */
     @Min(value = 0, message = "请选择正确的类型")
     @Max(value = 1, message = "请选择正确的类型")
+    @NotNull(message = "请选择正确的类型")
     private Integer type;
     /**
      * 创建时间

@@ -48,17 +48,17 @@ public class LeaveMessageReplyDto implements Serializable {
      * 回复用户的用户名
      */
     @JsonProperty("from_username")
-    private Integer fromUsername;
+    private String fromUsername;
     /**
      * 回复用户的昵称
      */
     @JsonProperty("from_nickname")
-    private Integer fromNickname;
+    private String fromNickname;
     /**
      * 回复用户的头像
      */
     @JsonProperty("from_avatar")
-    private Integer fromAvatar;
+    private String fromAvatar;
     /**
      * 回复用户的性别：0-女 1-男 2-保密
      */
@@ -73,17 +73,17 @@ public class LeaveMessageReplyDto implements Serializable {
      * 目标用户的用户名
      */
     @JsonProperty("to_username")
-    private Integer toUsername;
+    private String toUsername;
     /**
      * 目标用户的昵称
      */
     @JsonProperty("to_nickname")
-    private Integer toNickname;
+    private String toNickname;
     /**
      * 目标用户的头像
      */
     @JsonProperty("to_avatar")
-    private Integer toAvatar;
+    private String toAvatar;
     /**
      * 目标用户的性别：0-女 1-男 2-保密
      */

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.slipper.modules.config.dao.ConfigDao">
+
+    <resultMap type="com.slipper.modules.config.entity.ConfigEntity" id="configMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="jsonKey" column="json_key"/>
+        <result property="jsonValue" column="json_value"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+<!--    String queryValueById(@Param("id") int id);-->
+    <select id="queryValue" resultType="string">
+        SELECT queryValueById
+        FROM config
+        WHERE id = #{id}
+    </select>
+
+<!--    String queryValueByKey(@Param("key") String key);-->
+    <select id="queryValueByKey" resultType="string">
+        SELECT json_value
+        FROM config
+        WHERE json_key = #{key} and status = 1
+    </select>
+</mapper>

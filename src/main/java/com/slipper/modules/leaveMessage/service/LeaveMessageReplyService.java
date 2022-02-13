@@ -25,5 +25,11 @@ public interface LeaveMessageReplyService extends IService<LeaveMessageReplyEnti
      */
     RPage<LeaveMessageReplyDto> queryPage(LeaveMessageReplyPageVo leaveMessagePageVo);
 
+    /**
+     * 留言回复
+     * @param leaveMessageReplyEntity 留言回复
+     */
+    void create(LeaveMessageReplyEntity leaveMessageReplyEntity);
+
 }
 

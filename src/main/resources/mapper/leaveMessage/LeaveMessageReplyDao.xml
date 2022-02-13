@@ -22,9 +22,9 @@
                fu.id AS from_user_id, fu.username AS from_username, fu.nickname AS from_nickname, fu.avatar AS from_avatar, fu.sex AS from_sex,
                tu.id AS to_user_id, tu.username AS to_username, tu.nickname AS to_nickname, tu.avatar AS to_avatar, fu.sex AS to_sex
         FROM leave_message__reply AS lmr
-        LEFT JOIN leave_message AS lm
-        LEFT JOIN user AS fu
-        LEFT JOIN user AS tu
+        LEFT JOIN leave_message AS lm ON lm.id = lmr.leave_message_id
+        LEFT JOIN user AS fu ON fu.id = lmr.from_user_id
+        LEFT JOIN user AS tu ON tu.id = lmr.to_user_id
         WHERE lmr.deleted = 0 AND lmr.leave_message_id = #{id}
         ORDER BY lmr.created_at DESC
     </select>
