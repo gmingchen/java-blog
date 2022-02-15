@@ -1,7 +1,9 @@
 package com.slipper.modules.config.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.slipper.common.utils.R;
 import com.slipper.common.vo.StatusVo;
+import com.slipper.modules.config.entity.ConfigEntity;
 import com.slipper.modules.config.model.vo.ConfigVo;
 import com.slipper.modules.config.service.ConfigService;
 import com.slipper.modules.user.entity.UserEntity;
@@ -56,7 +58,9 @@ public class ConfigController {
      */
     @GetMapping("/console/config/list")
     public R list(){
-        return R.success(configService.list());
+        LambdaQueryWrapper<ConfigEntity> wrapper = new LambdaQueryWrapper<ConfigEntity>()
+                .orderByDesc(ConfigEntity::getStatus);
+        return R.success(configService.list(wrapper));
     }
 
     /**
@@ -88,7 +92,7 @@ public class ConfigController {
     /**
      * 编辑
      *
-     * @api {GET} /slipper/console/config/update update
+     * @api {POST} /slipper/console/config/update update
      * @apiDescription 编辑配置值信息
      * @apiVersion 1.0.0
      * @apiGroup Config
@@ -105,8 +109,35 @@ public class ConfigController {
      *     message: '成功!'
      * }
      */
+    @PostMapping("/console/config/update")
     public R update(@RequestBody ConfigVo configVo) {
         configService.update(configVo);
+        return R.success();
+    }
+
+    /**
+     * 启用配置 同一个键只能启用一个
+     *
+     * @api {POST} /slipper/console/config/status status
+     * @apiDescription 编辑配置值信息
+     * @apiVersion 1.0.0
+     * @apiGroup Config
+     * @apiName status
+     * @apiParamExample 请求参数示例
+     * {
+     *     key: '', // ID
+     *     value: '', // 0：禁用 1：启用
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @PostMapping("/console/config/status")
+    public R status(@RequestBody StatusVo<Integer, Integer> statusVo) {
+        configService.status(statusVo);
         return R.success();
     }
 

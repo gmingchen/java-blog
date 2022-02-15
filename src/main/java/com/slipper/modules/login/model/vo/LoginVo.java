@@ -23,6 +23,6 @@ public class LoginVo {
      * 密码
      */
     @NotBlank(message = "密码不能为空")
-    @Pattern(regexp = Regular.PASSWORD, message = "密码由8-12位数字、字母、下横线、中横线组成")
+//    @Pattern(regexp = Regular.PASSWORD, message = "密码由8-12位数字、字母、下横线、中横线组成")
     private String password;
 }

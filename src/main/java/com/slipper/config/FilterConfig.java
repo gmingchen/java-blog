@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
+import javax.servlet.DispatcherType;
+
 /**
  * Filter配置
  *
@@ -38,6 +40,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean xssFilterRegister() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
         // 设置系统过滤器 (setFilter就是你所定义的过滤器filter类)
         registration.setFilter(new XssFilter());
         // 过滤所有路径

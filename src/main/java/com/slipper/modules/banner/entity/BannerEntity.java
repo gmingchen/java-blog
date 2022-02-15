@@ -40,11 +40,6 @@ public class BannerEntity implements Serializable {
     @NotBlank(message = "图片不能为空", groups = {Create.class, Update.class})
     private String image;
     /**
-     * 水印图片
-     */
-    @NotBlank(message = "水印图片不能为空", groups = {Create.class, Update.class})
-    private String watermark;
-    /**
      * 跳转路径
      */
     private String url;

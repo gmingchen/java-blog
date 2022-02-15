@@ -83,18 +83,6 @@ public class RunExceptionHandler {
 		return R.error("Sql异常!");
 	}
 
-
-	/**
-	 * 服务端异常
-	 * @param e
-	 * @return
-	 */
-	@ExceptionHandler(Exception.class)
-	public R handleException(Exception e){
-		logger.error(e.getMessage(), e);
-		return R.error();
-	}
-
 	/**
 	 * 实体校验异常
 	 * @param e
@@ -122,6 +110,17 @@ public class RunExceptionHandler {
 	public R handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
 		logger.error(e.getMessage(), e);
 		return R.error(Constant.METHOD_ERROR_CODE, Constant.METHOD_ERROR + e.getMethod());
+	}
+
+	/**
+	 * 服务端异常
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	public R handleException(Exception e){
+		logger.error(e.getMessage(), e);
+		return R.error();
 	}
 
 	/**

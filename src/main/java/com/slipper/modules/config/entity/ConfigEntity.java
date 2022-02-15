@@ -46,6 +46,10 @@ public class ConfigEntity implements Serializable {
      */
     private Integer status;
     /**
+     * 状态：1-本地 2-七牛云
+     */
+    private Integer type;
+    /**
      * 备注
      */
     private String remark;

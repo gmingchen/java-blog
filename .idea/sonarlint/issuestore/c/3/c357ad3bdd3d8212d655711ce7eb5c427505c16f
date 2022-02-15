@@ -1,0 +1,8 @@
+
+h
+java:S1128"FRemove this unused import 'com.slipper.common.validator.group.Create'.(†Ÿá‡ûÿÿÿÿ8º•´İç/
+b
+java:S1128	"FRemove this unused import 'com.slipper.common.validator.group.Update'.(»æS8»•´İç/
+[
+java:S1128">Remove this unused import 'javax.validation.constraints.Null'.(ã¥˜8Ë‡¿İç/
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ŠŸ·–

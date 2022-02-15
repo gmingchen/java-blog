@@ -15,8 +15,8 @@
     </resultMap>
 
 <!--    String queryValueById(@Param("id") int id);-->
-    <select id="queryValue" resultType="string">
-        SELECT queryValueById
+    <select id="queryValueById" resultType="string">
+        SELECT json_value
         FROM config
         WHERE id = #{id}
     </select>

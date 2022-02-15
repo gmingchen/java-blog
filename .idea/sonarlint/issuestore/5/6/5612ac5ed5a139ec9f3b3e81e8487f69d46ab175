@@ -1,0 +1,6 @@
+
+Z
+java:S1128"=Remove this unused import 'javax.validation.constraints.Max'.(þÉ½¦8¹…ÖÞç/
+Z
+java:S1128"=Remove this unused import 'javax.validation.constraints.Min'.(ã¤Ž½8º…ÖÞç/
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÝŸ‘Ôþÿÿÿÿ

@@ -1,6 +1,7 @@
 package com.slipper.modules.config.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.slipper.common.vo.StatusVo;
 import com.slipper.modules.config.entity.ConfigEntity;
 import com.slipper.modules.config.model.vo.ConfigVo;
 
@@ -20,13 +21,19 @@ public interface ConfigService extends IService<ConfigEntity> {
      * @param id ID
      * @return
      */
-    Map<String, Object> queryValueById(int id);
+    String queryValueById(int id);
 
     /**
      * 编辑键值信息
      * @param configVo
      */
     void update(ConfigVo configVo);
+
+    /**
+     * 启用
+     * @param statusVo
+     */
+    void status(StatusVo<Integer, Integer> statusVo);
 
     /**
      * 通过 key 查询启用的值
