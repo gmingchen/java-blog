@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.slipper.modules.article.dao.ArticleDao">
+
+    <resultMap type="com.slipper.modules.article.model.dto.ArticleDto" id="articleMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="describe" column="describe"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="recommended" column="recommended"/>
+        <result property="commentable" column="commentable"/>
+        <result property="published" column="published"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <collection property="tags" javaType="List" ofType="com.slipper.modules.tag.model.dto.TagDto">
+            <id property="id" column="tag_id"></id>
+            <result property="name" column="tag_name"/>
+        </collection>
+    </resultMap>
+
+<!--    IPage<ArticleDto> queryPage(-->
+<!--    Page<ArticleDto> page,-->
+<!--    @Param("start") String start,-->
+<!--    @Param("end") String end,-->
+<!--    @Param("title") String title,-->
+<!--    @Param("categoryIds") List categoryIds,-->
+<!--    @Param("tagIds") List tagIds,-->
+<!--    @Param("recommended") Integer recommended,-->
+<!--    @Param("commentable") Integer commentable,-->
+<!--    @Param("published") Integer published-->
+<!--    );-->
+    <select id="queryPage" resultMap="articleMap">
+        SELECT a.id, a.title, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+               a.category_id, c.name AS category_name,
+               t.id AS tag_id, t.name AS tag_name
+        FROM article AS a
+        LEFT JOIN category AS c ON c.id = a.category_id
+        LEFT JOIN article__tag AS a_t ON a_t.article_id = a.id
+        LEFT JOIN tag AS t ON t.id = a_t.tag_id
+        <where>
+            a.deleted = 0
+            <if test="title != null and title !=''">
+                AND a.title LIKE "%${title}%"
+            </if>
+            <if test="categoryIds != null and categoryIds.size() > 0">
+                AND a.category_id IN
+                <foreach collection="categoryIds" item="item" open="(" separator="," close=")">
+                    ${item}
+                </foreach>
+            </if>
+            <if test="tagIds != null and tagIds.size() > 0">
+                AND a_t.tag_id IN
+                <foreach collection="tagIds" item="item" open="(" separator="," close=")">
+                    ${item}
+                </foreach>
+            </if>
+            <if test="recommended != null and recommended !=''">
+                AND a.recommended = #{recommended}
+            </if>
+            <if test="commentable != null and commentable !=''">
+                AND a.commentable = #{commentable}
+            </if>
+            <if test="published != null and published !=''">
+                AND a.published = #{published}
+            </if>
+            <if test="start != null and start != ''">
+                AND date_format(a.created_at,'%Y-%m-%d') <![CDATA[ >= ]]> date_format(#{start},'%Y-%m-%d')
+            </if>
+            <if test="end != null and end != ''">
+                AND date_format(a.created_at,'%Y-%m-%d') <![CDATA[ <= ]]> date_format(#{end},'%Y-%m-%d')
+            </if>
+        </where>
+        ORDER BY a.created_at DESC
+    </select>
+
+<!--    ArticleDto queryInfo(@Param("id") int id);-->
+    <select id="queryInfo" resultMap="articleMap">
+        SELECT a.id, a.title, a.content, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+               a.category_id, c.name AS category_name,
+               t.id AS tag_id, t.name AS tag_name
+        FROM article AS a
+                 LEFT JOIN category AS c ON c.id = a.category_id
+                 LEFT JOIN article__tag AS a_t ON a_t.article_id = a.id
+                 LEFT JOIN tag AS t ON t.id = a_t.tag_id
+        where id = #{id}
+    </select>
+</mapper>

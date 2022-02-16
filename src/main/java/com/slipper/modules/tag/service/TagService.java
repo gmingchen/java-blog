@@ -28,7 +28,7 @@ public interface TagService extends IService<TagEntity> {
     void create(TagEntity tagEntity);
 
     /**
-     * 新增
+     * 编辑
      * @param tagEntity 标签
      */
     void update(TagEntity tagEntity);

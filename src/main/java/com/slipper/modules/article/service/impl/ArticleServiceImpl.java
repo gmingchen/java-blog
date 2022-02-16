@@ -1,0 +1,123 @@
+package com.slipper.modules.article.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.slipper.common.utils.Query;
+import com.slipper.common.utils.RPage;
+import com.slipper.modules.article.dao.ArticleDao;
+import com.slipper.modules.article.entity.ArticleEntity;
+import com.slipper.modules.article.entity.ArticleTagEntity;
+import com.slipper.modules.article.model.dto.ArticleDto;
+import com.slipper.modules.article.model.vo.ArticlePageVo;
+import com.slipper.modules.article.model.vo.ArticleVo;
+import com.slipper.modules.article.service.ArticleService;
+import com.slipper.modules.article.service.ArticleTagService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author gumingchen
+ */
+@Service("articleService")
+public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> implements ArticleService {
+    @Resource
+    private ArticleTagService articleTagService;
+
+    @Override
+    public RPage<ArticleDto> queryPage(ArticlePageVo articlePageVo) {
+        Page<ArticleDto> page = new Query<ArticleDto>().getPage(articlePageVo.getCurrent(), articlePageVo.getSize());
+        return new RPage<>(
+                baseMapper.queryPage(
+                        page,
+                        articlePageVo.getStart(),
+                        articlePageVo.getEnd(),
+                        articlePageVo.getTitle(),
+                        articlePageVo.getCategoryIds(),
+                        articlePageVo.getTagIds(),
+                        articlePageVo.getRecommended(),
+                        articlePageVo.getCommentable(),
+                        articlePageVo.getPublished()
+                )
+        );
+    }
+
+    @Override
+    public ArticleDto queryInfo(int id) {
+        return baseMapper.queryInfo(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void create(ArticleVo articleVo) {
+        ArticleEntity articleEntity = getArticle(articleVo);
+        articleEntity.setCreatedAt(new Date());
+        this.save(articleEntity);
+
+        List<ArticleTagEntity> articleTagList = getArticleTag(articleEntity.getId(), articleVo.getTags());
+        articleTagService.saveBatch(articleTagList);
+
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void update(ArticleVo articleVo) {
+        ArticleEntity articleEntity = getArticle(articleVo);
+        articleEntity.setUpdatedAt(new Date());
+        this.updateById(articleEntity);
+
+        LambdaQueryWrapper<ArticleTagEntity> wrapper = new LambdaQueryWrapper<ArticleTagEntity>()
+                .eq(ArticleTagEntity::getArticleId, articleVo.getId());
+        articleTagService.remove(wrapper);
+
+        List<ArticleTagEntity> articleTagList = getArticleTag(articleVo.getId(), articleVo.getTags());
+        articleTagService.saveBatch(articleTagList);
+    }
+
+    /**
+     * 设置 文章
+     * @param articleVo 文章入参
+     * @return
+     */
+    private ArticleEntity getArticle(ArticleVo articleVo) {
+        ArticleEntity articleEntity = new ArticleEntity();
+        articleEntity.setId(articleVo.getId());
+        articleEntity.setTitle(articleVo.getTitle());
+        try {
+            articleEntity.setContent(URLDecoder.decode(articleVo.getContent(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        articleEntity.setDescribe(articleVo.getDescribe());
+        articleEntity.setCategoryId(articleVo.getCategoryId());
+        articleEntity.setRecommended(articleVo.getRecommended());
+        articleEntity.setCommentable(articleVo.getCommentable());
+        articleEntity.setPublished(articleVo.getPublished());
+        return articleEntity;
+    }
+
+    /**
+     * 设置 文章标签
+     * @param articleId 文章ID
+     * @param tagIds 标签ID
+     * @return
+     */
+    private List<ArticleTagEntity> getArticleTag(int articleId, List<Integer> tagIds) {
+        List<ArticleTagEntity> articleTagList = new ArrayList<>();
+        for (int tagId : tagIds) {
+            ArticleTagEntity articleTagEntity = new ArticleTagEntity();
+            articleTagEntity.setArticleId(articleId);
+            articleTagEntity.setTagId(tagId);
+            articleTagList.add(articleTagEntity);
+        }
+        return articleTagList;
+    }
+}
