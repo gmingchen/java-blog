@@ -7,7 +7,6 @@
         <result property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="image" column="image"/>
-        <result property="watermark" column="watermark"/>
         <result property="url" column="url"/>
         <result property="type" column="type"/>
         <result property="sort" column="sort"/>
