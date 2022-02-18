@@ -23,7 +23,7 @@ import java.util.Date;
  * @date 1995-08-30 00:00:00
  */
 @Data
-@TableName(value = "tag")
+@TableName(value = "category")
 public class CategoryEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
