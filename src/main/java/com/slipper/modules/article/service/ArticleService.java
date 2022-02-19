@@ -34,7 +34,7 @@ public interface ArticleService extends IService<ArticleEntity> {
      * 新增
      * @param articleVo 实体
      */
-    void create(ArticleVo articleVo);
+    Integer create(ArticleVo articleVo);
 
     /**
      * 编辑

@@ -57,14 +57,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void create(ArticleVo articleVo) {
+    public Integer create(ArticleVo articleVo) {
         ArticleEntity articleEntity = getArticle(articleVo);
         articleEntity.setCreatedAt(new Date());
         this.save(articleEntity);
 
         List<ArticleTagEntity> articleTagList = getArticleTag(articleEntity.getId(), articleVo.getTags());
         articleTagService.saveBatch(articleTagList);
-
+        return articleEntity.getId();
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -91,6 +91,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         ArticleEntity articleEntity = new ArticleEntity();
         articleEntity.setId(articleVo.getId());
         articleEntity.setTitle(articleVo.getTitle());
+        articleEntity.setType(articleVo.getType());
         try {
             articleEntity.setContent(URLDecoder.decode(articleVo.getContent(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {

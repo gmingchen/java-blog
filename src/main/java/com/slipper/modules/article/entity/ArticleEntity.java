@@ -35,6 +35,12 @@ public class ArticleEntity implements Serializable {
     @Length(min = 1, max = 20, message = "标题由1-20位字符组成", groups = {Create.class, Update.class})
     private String title;
     /**
+     * 文章内容类型 1-markdown 2-富文本
+     */
+    @Min(value = 1, message = "请选择正确的类型", groups = {Create.class, Update.class})
+    @Max(value = 2, message = "请选择正确的类型", groups = {Create.class, Update.class})
+    private Integer type;
+    /**
      * 内容
      */
     @NotBlank(message = "内容不能为空", groups = {Create.class, Update.class})

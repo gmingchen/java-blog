@@ -19,6 +19,10 @@ public class ArticleDto {
      */
     private String title;
     /**
+     * 文章内容类型 1-markdown 2-富文本
+     */
+    private Integer type;
+    /**
      * 内容
      */
     private String content;
@@ -55,9 +59,11 @@ public class ArticleDto {
     /**
      * 创建时间
      */
+    @JsonProperty("created_at")
     private Date createdAt;
     /**
      * 更新时间
      */
+    @JsonProperty("updated_at")
     private Date updatedAt;
 }

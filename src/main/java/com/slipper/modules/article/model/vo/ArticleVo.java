@@ -6,9 +6,7 @@ import com.slipper.common.validator.group.Update;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 /**
@@ -24,6 +22,12 @@ public class ArticleVo {
      */
     @Length(min = 1, max = 20, message = "标题由1-20位字符组成", groups = {Create.class, Update.class})
     private String title;
+    /**
+     * 文章内容类型 1-markdown 2-富文本
+     */
+    @Min(value = 1, message = "请选择正确的类型", groups = {Create.class, Update.class})
+    @Max(value = 2, message = "请选择正确的类型", groups = {Create.class, Update.class})
+    private Integer type;
     /**
      * 内容
      */

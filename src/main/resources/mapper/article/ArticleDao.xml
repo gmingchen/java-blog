@@ -6,6 +6,7 @@
     <resultMap type="com.slipper.modules.article.model.dto.ArticleDto" id="articleMap">
         <result property="id" column="id"/>
         <result property="title" column="title"/>
+        <result property="type" column="type"/>
         <result property="content" column="content"/>
         <result property="describe" column="describe"/>
         <result property="categoryId" column="category_id"/>
@@ -33,7 +34,7 @@
 <!--    @Param("published") Integer published-->
 <!--    );-->
     <select id="queryPage" resultMap="articleMap">
-        SELECT a.id, a.title, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+        SELECT a.id, a.title, a.type, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
                a.category_id, c.name AS category_name,
                t.id AS tag_id, t.name AS tag_name
         FROM article AS a
@@ -78,13 +79,13 @@
 
 <!--    ArticleDto queryInfo(@Param("id") int id);-->
     <select id="queryInfo" resultMap="articleMap">
-        SELECT a.id, a.title, a.content, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+        SELECT a.id, a.title, a.type, a.content, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
                a.category_id, c.name AS category_name,
                t.id AS tag_id, t.name AS tag_name
         FROM article AS a
                  LEFT JOIN category AS c ON c.id = a.category_id
                  LEFT JOIN article__tag AS a_t ON a_t.article_id = a.id
                  LEFT JOIN tag AS t ON t.id = a_t.tag_id
-        where id = #{id}
+        where a.id = #{id}
     </select>
 </mapper>

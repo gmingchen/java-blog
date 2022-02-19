@@ -154,8 +154,7 @@ public class ArticleController {
      */
     @PostMapping("/console/article/create")
     public R create(@RequestBody @Validated(Create.class) ArticleVo articleVo){
-        articleService.create(articleVo);
-        return R.success();
+        return R.success(articleService.create(articleVo));
     }
 
     /**
