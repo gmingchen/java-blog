@@ -18,7 +18,7 @@ public class ArticlePageVo extends PageDateVo {
     /**
      * 分类ID列表
      */
-    @JsonProperty("category_id")
+    @JsonProperty("category_ids")
     private List<Integer> categoryIds;
     /**
      * 标签ID列表

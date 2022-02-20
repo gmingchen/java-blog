@@ -23,10 +23,10 @@
                 AND (u.username LIKE "%${name}%" OR u.nickname LIKE "%${name}%")
             </if>
             <if test="start != null and start != ''">
-                AND date_format(lm.created_at,'%Y-%m-%d') <![CDATA[ >= ]]> date_format(#{start},'%Y-%m-%d')
+                AND DATE_FORMAT(lm.created_at,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{start},'%Y-%m-%d')
             </if>
             <if test="end != null and end != ''">
-                AND date_format(lm.created_at,'%Y-%m-%d') <![CDATA[ <= ]]> date_format(#{end},'%Y-%m-%d')
+                AND DATE_FORMAT(lm.created_at,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{end},'%Y-%m-%d')
             </if>
         </where>
         ORDER BY lm.created_at DESC

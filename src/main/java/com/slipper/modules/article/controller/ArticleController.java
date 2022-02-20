@@ -3,12 +3,15 @@ package com.slipper.modules.article.controller;
 import com.slipper.common.utils.R;
 import com.slipper.common.validator.group.Create;
 import com.slipper.common.validator.group.Update;
+import com.slipper.common.vo.StatusVo;
+import com.slipper.modules.article.entity.ArticleEntity;
 import com.slipper.modules.article.model.vo.ArticlePageVo;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.service.ArticleService;
 import com.slipper.modules.category.entity.CategoryEntity;
 import com.slipper.modules.category.model.vo.CategoryPageVo;
 import com.slipper.modules.category.service.CategoryService;
+import com.slipper.modules.user.entity.UserEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +36,7 @@ public class ArticleController {
     /**
      * 分页列表
      *
-     * @api {GET} /slipper/console/article/page page
+     * @api {POST} /slipper/console/article/page page
      * @apiDescription 文章分页列表
      * @apiVersion 1.0.0
      * @apiGroup Article
@@ -45,8 +48,7 @@ public class ArticleController {
      *     start: '', // 开始时间
      *     end: '', // 结束时间
      *     title: '', // 标题
-     *     categoryIds: '', // 分类ID列表
-     *     tagIds: '', // 标签ID列表
+     *     category_ids: [], // 分类ID列表
      *     recommended: '', // 是否推荐：0-否 1-是
      *     commentable: '', // 是否可以评论：0-否 1-是
      *     published: '', // 是否发布：0-否 1-是
@@ -80,8 +82,8 @@ public class ArticleController {
      *     }
      * }
      */
-    @GetMapping("/console/article/page")
-    public R page(ArticlePageVo articlePageVo){
+    @PostMapping("/console/article/page")
+    public R page(@RequestBody ArticlePageVo articlePageVo){
         return R.success(articleService.queryPage(articlePageVo));
     }
 
@@ -212,6 +214,96 @@ public class ArticleController {
     @PostMapping("/console/article/delete")
     public R delete(@RequestBody List<Integer> ids) {
         articleService.removeBatchByIds(ids);
+        return R.success();
+    }
+
+    /**
+     * 是否推荐
+     *
+     * @api {POST} /slipper/console/article/recommended recommended
+     * @apiDescription 文章是否推荐
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName recommended
+     * @apiParamExample 请求参数示例
+     * {
+     *     key: '', // ID
+     *     value: '' // 0：不推荐 1：推荐
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @PostMapping("/console/article/recommended")
+    public R recommended(@RequestBody @Validated StatusVo<Integer, Integer> statusVo){
+        ArticleEntity article = new ArticleEntity();
+        article.setId(statusVo.getKey());
+        article.setRecommended(statusVo.getValue());
+
+        articleService.updateById(article);
+        return R.success();
+    }
+
+    /**
+     * 是否可评论
+     *
+     * @api {POST} /slipper/console/article/commentable commentable
+     * @apiDescription 文章是否可评论
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName commentable
+     * @apiParamExample 请求参数示例
+     * {
+     *     key: '', // ID
+     *     value: '' // 0：不可评论 1：可评论
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @PostMapping("/console/article/commentable")
+    public R commentable(@RequestBody @Validated StatusVo<Integer, Integer> statusVo){
+        ArticleEntity article = new ArticleEntity();
+        article.setId(statusVo.getKey());
+        article.setCommentable(statusVo.getValue());
+
+        articleService.updateById(article);
+        return R.success();
+    }
+
+    /**
+     * 是否发布
+     *
+     * @api {POST} /slipper/console/article/published published
+     * @apiDescription 文章是否发布
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName published
+     * @apiParamExample 请求参数示例
+     * {
+     *     key: '', // ID
+     *     value: '' // 0：不发布 1：发布
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @PostMapping("/console/article/published")
+    public R published(@RequestBody @Validated StatusVo<Integer, Integer> statusVo){
+        ArticleEntity article = new ArticleEntity();
+        article.setId(statusVo.getKey());
+        article.setPublished(statusVo.getValue());
+
+        articleService.updateById(article);
         return R.success();
     }
 
