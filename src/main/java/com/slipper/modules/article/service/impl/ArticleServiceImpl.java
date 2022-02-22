@@ -99,6 +99,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         }
         articleEntity.setDescribe(articleVo.getDescribe());
         articleEntity.setCategoryId(articleVo.getCategoryId());
+        articleEntity.setCover(articleVo.getCover());
         articleEntity.setRecommended(articleVo.getRecommended());
         articleEntity.setCommentable(articleVo.getCommentable());
         articleEntity.setPublished(articleVo.getPublished());

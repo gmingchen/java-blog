@@ -58,6 +58,10 @@ public class ArticleEntity implements Serializable {
     @JsonProperty("category_id")
     private Integer categoryId;
     /**
+     * 封面图
+     */
+    private String cover;
+    /**
      * 是否推荐：0-否 1-是
      */
     private Integer recommended;

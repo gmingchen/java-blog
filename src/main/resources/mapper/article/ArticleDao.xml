@@ -10,6 +10,7 @@
         <result property="content" column="content"/>
         <result property="describe" column="describe"/>
         <result property="categoryId" column="category_id"/>
+        <result property="cover" column="cover"/>
         <result property="categoryName" column="category_name"/>
         <result property="recommended" column="recommended"/>
         <result property="commentable" column="commentable"/>
@@ -40,7 +41,7 @@
     </select>
 
     <select id="queryPage" resultMap="articleMap">
-        SELECT a.id, a.title, a.type, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+        SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
                a.category_id, c.name AS category_name
         FROM article AS a
         LEFT JOIN category AS c ON c.id = a.category_id
@@ -76,7 +77,7 @@
 
 <!--    ArticleDto queryInfo(@Param("id") int id);-->
     <select id="queryInfo" resultMap="articleMap">
-        SELECT a.id, a.title, a.type, a.content, a.describe, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+        SELECT a.id, a.title, a.type, a.content, a.describe, a.cover, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
                a.category_id, c.name AS category_name
         FROM article AS a
         LEFT JOIN category AS c ON c.id = a.category_id

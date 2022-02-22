@@ -36,6 +36,10 @@ public class ArticleDto {
     @JsonProperty("category_id")
     private Integer categoryId;
     /**
+     * 封面图
+     */
+    private String cover;
+    /**
      * 分类名称
      */
     @JsonProperty("category_name")

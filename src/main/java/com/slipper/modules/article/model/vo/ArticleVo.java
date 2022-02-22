@@ -50,6 +50,10 @@ public class ArticleVo {
     @Size(min = 1, message = "标签不能为空", groups = {Create.class, Update.class})
     private List<Integer> tags;
     /**
+     * 封面图
+     */
+    private String cover;
+    /**
      * 是否推荐：0-否 1-是
      */
     private Integer recommended;
