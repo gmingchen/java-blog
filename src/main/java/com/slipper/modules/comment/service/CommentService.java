@@ -17,10 +17,10 @@ public interface CommentService extends IService<CommentEntity> {
 
     /**
      * 分页
-     * @param leaveMessagePageVo 分页参数
+     * @param commentPageVo 分页参数
      * @return
      */
-    RPage<CommentDto> queryPage(CommentPageVo leaveMessagePageVo);
+    RPage<CommentDto> queryPage(CommentPageVo commentPageVo);
 
 }
 

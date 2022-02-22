@@ -7,7 +7,7 @@ import com.slipper.modules.comment.model.dto.CommentReplyDto;
 import com.slipper.modules.comment.model.vo.CommentReplyPageVo;
 
 /**
- * 留言回复
+ * 文章评论回复
  *
  * @author gumingchen
  * @email 1240235512@qq.com
@@ -17,16 +17,16 @@ public interface CommentReplyService extends IService<CommentReplyEntity> {
 
     /**
      * 分页
-     * @param leaveMessagePageVo 分页参数
+     * @param commentReplyPageVo 分页参数
      * @return
      */
-    RPage<CommentReplyDto> queryPage(CommentReplyPageVo leaveMessagePageVo);
+    RPage<CommentReplyDto> queryPage(CommentReplyPageVo commentReplyPageVo);
 
     /**
-     * 留言回复
-     * @param leaveMessageReplyEntity 留言回复
+     * 文章评论回复
+     * @param commentReplyEntity 文章评论回复实体
      */
-    void create(CommentReplyEntity leaveMessageReplyEntity);
+    void create(CommentReplyEntity commentReplyEntity);
 
 }
 

@@ -12,24 +12,28 @@
         <result property="deleted" column="deleted"/>
     </resultMap>
 
-<!--    IPage<CommentDto> queryPage(Page<CommentDto> page, @Param("start") String start, @Param("end") String end, @Param("name") String name);-->
+<!--    IPage<CommentDto> queryPage(Page<CommentDto> page,-->
+<!--    @Param("start") Integer id,-->
+<!--    @Param("start") String start,-->
+<!--    @Param("end") String end,-->
+<!--    @Param("name") String name);-->
     <select id="queryPage" resultType="com.slipper.modules.comment.model.dto.CommentDto">
-        SELECT lm.id, lm.content, lm.user_id, lm.created_at,
+        SELECT c.id, c.content, c.article_id, c.user_id, c.created_at,
                 u.username, u.nickname, u.avatar, u.sex
-        FROM leave_message AS lm
-        LEFT JOIN user AS u on u.id = lm.user_id
+        FROM comment AS c
+        LEFT JOIN user AS u ON u.id = c.user_id
         <where>
-            lm.deleted = 0
+            c.article_id = #{id} AND c.deleted = 0
             <if test="name != null or name !=''">
                 AND (u.username LIKE "%${name}%" OR u.nickname LIKE "%${name}%")
             </if>
             <if test="start != null and start != ''">
-                AND DATE_FORMAT(lm.created_at,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{start},'%Y-%m-%d')
+                AND DATE_FORMAT(c.created_at,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{start},'%Y-%m-%d')
             </if>
             <if test="end != null and end != ''">
-                AND DATE_FORMAT(lm.created_at,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{end},'%Y-%m-%d')
+                AND DATE_FORMAT(c.created_at,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{end},'%Y-%m-%d')
             </if>
         </where>
-        ORDER BY lm.created_at DESC
+        ORDER BY c.created_at DESC
     </select>
 </mapper>

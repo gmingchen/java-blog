@@ -20,10 +20,15 @@ public interface CommentDao extends BaseMapper<CommentEntity> {
     /**
      * 分页
      * @param page 分页参数
+     * @param id 文章ID
      * @param start 开始时间
      * @param end 结束时间
      * @param name 用户名 / 昵称
      * @return
      */
-    IPage<CommentDto> queryPage(Page<CommentDto> page, @Param("start") String start, @Param("end") String end, @Param("name") String name);
+    IPage<CommentDto> queryPage(Page<CommentDto> page,
+                                @Param("id") Integer id,
+                                @Param("start") String start,
+                                @Param("end") String end,
+                                @Param("name") String name);
 }

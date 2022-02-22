@@ -18,16 +18,17 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> implements CommentService {
 
     @Override
-    public RPage<CommentDto> queryPage(CommentPageVo leaveMessagePageVo) {
+    public RPage<CommentDto> queryPage(CommentPageVo commentPageVo) {
         Page<CommentDto> page = new Query<CommentDto>()
-                .getPage(leaveMessagePageVo.getCurrent(), leaveMessagePageVo.getSize());
+                .getPage(commentPageVo.getCurrent(), commentPageVo.getSize());
 
         return new RPage<>(
                 baseMapper.queryPage(
                         page,
-                        leaveMessagePageVo.getStart(),
-                        leaveMessagePageVo.getEnd(),
-                        leaveMessagePageVo.getName()
+                        commentPageVo.getId(),
+                        commentPageVo.getStart(),
+                        commentPageVo.getEnd(),
+                        commentPageVo.getName()
                 )
         );
     }

@@ -105,7 +105,7 @@ public class LeaveMessageReplyController extends AbstractController {
     @PostMapping("/console/leaveMessageReply/create")
     public R create(@RequestBody @Validated LeaveMessageReplyEntity leaveMessageReplyEntity) {
         if (leaveMessageReplyEntity.getType() == 1 && leaveMessageReplyEntity.getLeaveMessageReplyId() == null) {
-            return R.error(Constant.VERIFICATION_ERROR_CODE, Constant.VERIFICATION_ERROR + "leave_message_reply_id-留言ID不能为空");
+            return R.error(Constant.VERIFICATION_ERROR_CODE, Constant.VERIFICATION_ERROR + "leave_message_reply_id-留言回复ID不能为空");
         }
         leaveMessageReplyEntity.setFromUserId(getUserId());
         leaveMessageReplyService.create(leaveMessageReplyEntity);

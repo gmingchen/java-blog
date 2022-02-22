@@ -35,6 +35,7 @@ public class CommentController {
      * {
      *     page: 1, // 当前页
      *     size: 10, // 页面大小
+     *     article_id: 10, // 文章ID
      *     name: '', // 用户名 / 昵称
      * }
      * @apiSuccessExample 响应结果示例

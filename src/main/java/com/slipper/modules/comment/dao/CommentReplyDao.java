@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * 留言回复
+ * 文章评论回复
  *
  * @author gumingchen
  * @email 1240235512@qq.com

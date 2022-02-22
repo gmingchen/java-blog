@@ -103,7 +103,7 @@ public class CommentReplyController extends AbstractController {
     @PostMapping("/console/commentReply/create")
     public R create(@RequestBody @Validated CommentReplyEntity commentReplyEntity) {
         if (commentReplyEntity.getType() == 1 && commentReplyEntity.getCommentReplyId() == null) {
-            return R.error(Constant.VERIFICATION_ERROR_CODE, Constant.VERIFICATION_ERROR + "comment_reply_id-留言ID不能为空");
+            return R.error(Constant.VERIFICATION_ERROR_CODE, Constant.VERIFICATION_ERROR + "comment_reply_id-文章回复ID不能为空");
         }
         commentReplyEntity.setFromUserId(getUserId());
         commentReplyService.create(commentReplyEntity);

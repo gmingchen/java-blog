@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 文字评论回复
+ * 文章评论回复
  *
  * @author gumingchen
  * @email 1240235512@qq.com

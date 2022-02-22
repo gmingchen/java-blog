@@ -20,22 +20,22 @@ import java.util.Date;
 public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyDao, CommentReplyEntity> implements CommentReplyService {
 
     @Override
-    public RPage<CommentReplyDto> queryPage(CommentReplyPageVo leaveMessageReplyPageVo) {
+    public RPage<CommentReplyDto> queryPage(CommentReplyPageVo commentReplyPageVo) {
         Page<CommentReplyDto> page = new Query<CommentReplyDto>()
-                .getPage(leaveMessageReplyPageVo.getCurrent(), leaveMessageReplyPageVo.getSize());
+                .getPage(commentReplyPageVo.getCurrent(), commentReplyPageVo.getSize());
 
         return new RPage<>(
                 baseMapper.queryPage(
                         page,
-                        leaveMessageReplyPageVo.getId()
+                        commentReplyPageVo.getId()
                 )
         );
     }
 
     @Override
-    public void create(CommentReplyEntity leaveMessageReplyEntity) {
-        leaveMessageReplyEntity.setCreatedAt(new Date());
-        this.save(leaveMessageReplyEntity);
+    public void create(CommentReplyEntity commentReplyEntity) {
+        commentReplyEntity.setCreatedAt(new Date());
+        this.save(commentReplyEntity);
     }
 
 }
