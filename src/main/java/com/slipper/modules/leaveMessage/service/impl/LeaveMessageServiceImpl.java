@@ -6,10 +6,13 @@ import com.slipper.common.utils.Query;
 import com.slipper.common.utils.RPage;
 import com.slipper.modules.leaveMessage.dao.LeaveMessageDao;
 import com.slipper.modules.leaveMessage.entity.LeaveMessageEntity;
+import com.slipper.modules.leaveMessage.model.dto.LeaveMessageBasicDto;
 import com.slipper.modules.leaveMessage.model.dto.LeaveMessageDto;
 import com.slipper.modules.leaveMessage.model.vo.LeaveMessagePageVo;
 import com.slipper.modules.leaveMessage.service.LeaveMessageService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author gumingchen
@@ -30,6 +33,11 @@ public class LeaveMessageServiceImpl extends ServiceImpl<LeaveMessageDao, LeaveM
                         leaveMessagePageVo.getName()
                 )
         );
+    }
+
+    @Override
+    public List<LeaveMessageBasicDto> queryLatest(int limit) {
+        return baseMapper.queryLatest(limit);
     }
 
 }

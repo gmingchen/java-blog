@@ -15,6 +15,7 @@
         <result property="recommended" column="recommended"/>
         <result property="commentable" column="commentable"/>
         <result property="published" column="published"/>
+        <result property="publishedAt" column="published_at"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
         <collection property="tags" column="{id = id}" select="queryTag">
@@ -41,7 +42,7 @@
     </select>
 
     <select id="queryPage" resultMap="articleMap">
-        SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+        SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.published_at, a.created_at, a.updated_at,
                a.category_id, c.name AS category_name
         FROM article AS a
         LEFT JOIN category AS c ON c.id = a.category_id
@@ -77,10 +78,19 @@
 
 <!--    ArticleDto queryInfo(@Param("id") int id);-->
     <select id="queryInfo" resultMap="articleMap">
-        SELECT a.id, a.title, a.type, a.content, a.describe, a.cover, a.recommended, a.commentable, a.published, a.created_at, a.updated_at,
+        SELECT a.id, a.title, a.type, a.content, a.describe, a.cover, a.recommended, a.commentable, a.published, a.published_at, a.created_at, a.updated_at,
                a.category_id, c.name AS category_name
         FROM article AS a
         LEFT JOIN category AS c ON c.id = a.category_id
-        where a.id = #{id}
+        WHERE a.id = #{id}
+    </select>
+
+<!--    List<ArticleBasicDto> queryLatest(@Param("limit") int limit);-->
+    <select id="queryLatest" resultType="com.slipper.modules.article.model.dto.ArticleBasicDto">
+        SELECT id, title, published_at, created_at, updated_at
+        FROM article
+        WHERE published = 1 AND deleted = 0
+        ORDER BY published_at DESC
+        LIMIT #{limit}
     </select>
 </mapper>

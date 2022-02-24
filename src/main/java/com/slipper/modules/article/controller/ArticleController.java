@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,6 +77,7 @@ public class ArticleController {
      *         	   recommended: '', // 是否推荐：0-否 1-是
      *         	   commentable: '', // 是否可以评论：0-否 1-是
      *         	   published: '', // 是否发布：0-否 1-是
+     *             published_at: '', // 发布时间
      *             created_at: '', // 创建时间
      *             updated_at: '' // 更新时间
      *         }]
@@ -118,6 +120,7 @@ public class ArticleController {
      *         recommended: '', // 是否推荐：0-否 1-是
      *         commentable: '', // 是否可以评论：0-否 1-是
      *         published: '', // 是否发布：0-否 1-是
+     *         published_at: '', // 发布时间
      *         created_at: '', // 创建时间
      *         updated_at: '' // 更新时间
      *     }
@@ -302,7 +305,9 @@ public class ArticleController {
         ArticleEntity article = new ArticleEntity();
         article.setId(statusVo.getKey());
         article.setPublished(statusVo.getValue());
-
+        if (statusVo.getValue() == 1) {
+            article.setPublishedAt(new Date());
+        }
         articleService.updateById(article);
         return R.success();
     }

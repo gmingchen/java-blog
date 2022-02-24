@@ -3,9 +3,12 @@ package com.slipper.modules.article.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.slipper.common.utils.RPage;
 import com.slipper.modules.article.entity.ArticleEntity;
+import com.slipper.modules.article.model.dto.ArticleBasicDto;
 import com.slipper.modules.article.model.dto.ArticleDto;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.model.vo.ArticlePageVo;
+
+import java.util.List;
 
 /**
  * 文章
@@ -41,6 +44,20 @@ public interface ArticleService extends IService<ArticleEntity> {
      * @param articleVo 实体
      */
     void update(ArticleVo articleVo);
+
+    /**
+     * 查询文章数量
+     * @param published 0-未发布 1-发布 null-发布和未发布
+     * @return
+     */
+    Long queryCount(Integer published);
+
+    /**
+     * 获取最近发布的文章
+     * @param limit 数量
+     * @return
+     */
+    List<ArticleBasicDto> queryLatest(int limit);
 
 }
 

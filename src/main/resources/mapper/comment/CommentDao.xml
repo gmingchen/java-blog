@@ -36,4 +36,16 @@
         </where>
         ORDER BY c.created_at DESC
     </select>
+
+<!--    List<CommentBasicDto> queryLatest(@Param("limit") int limit);-->
+    <select id="queryLatest" resultType="com.slipper.modules.comment.model.dto.CommentBasicDto">
+        SELECT c.id, c.content, c.article_id, c.user_id, c.created_at,
+                a.title AS article_title, u.username, u.nickname
+        FROM comment AS c
+        LEFT JOIN article AS a ON a.id = c.article_id
+        LEFT JOIN user AS u ON u.id = c.user_id
+        WHERE c.deleted = 0
+        ORDER BY c.created_at DESC
+        LIMIT #{limit}
+    </select>
 </mapper>

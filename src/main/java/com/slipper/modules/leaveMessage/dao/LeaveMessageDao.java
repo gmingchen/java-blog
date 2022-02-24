@@ -3,11 +3,14 @@ package com.slipper.modules.leaveMessage.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.slipper.modules.comment.model.dto.CommentBasicDto;
 import com.slipper.modules.leaveMessage.entity.LeaveMessageEntity;
+import com.slipper.modules.leaveMessage.model.dto.LeaveMessageBasicDto;
 import com.slipper.modules.leaveMessage.model.dto.LeaveMessageDto;
-import com.slipper.modules.user.model.dto.UserBasicDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 留言
@@ -27,4 +30,11 @@ public interface LeaveMessageDao extends BaseMapper<LeaveMessageEntity> {
      * @return
      */
     IPage<LeaveMessageDto> queryPage(Page<LeaveMessageDto> page, @Param("start") String start, @Param("end") String end, @Param("name") String name);
+
+    /**
+     * 获取最近收到的留言
+     * @param limit 数量
+     * @return
+     */
+    List<LeaveMessageBasicDto> queryLatest(@Param("limit") int limit);
 }

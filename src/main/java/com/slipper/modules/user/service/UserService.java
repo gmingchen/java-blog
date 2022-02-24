@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.slipper.common.utils.RPage;
 import com.slipper.modules.user.entity.UserEntity;
 import com.slipper.modules.user.model.dto.UserBasicDto;
+import com.slipper.modules.user.model.dto.UserStatisticsDto;
 import com.slipper.modules.user.model.vo.UserPageVo;
+
+import java.util.List;
 
 /**
  * 用户
@@ -35,6 +38,13 @@ public interface UserService extends IService<UserEntity> {
      * @return
      */
     UserEntity queryInfoByUsername(String username);
+
+    /**
+     * 最近增加用户统计
+     * @param day 最近天数
+     * @return
+     */
+    List<UserStatisticsDto> queryUserStatistics(int day);
 
 }
 

@@ -8,9 +8,12 @@ import com.slipper.common.utils.RPage;
 import com.slipper.modules.user.dao.UserDao;
 import com.slipper.modules.user.entity.UserEntity;
 import com.slipper.modules.user.model.dto.UserBasicDto;
+import com.slipper.modules.user.model.dto.UserStatisticsDto;
 import com.slipper.modules.user.model.vo.UserPageVo;
 import com.slipper.modules.user.service.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author gumingchen
@@ -41,5 +44,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
         LambdaQueryWrapper<UserEntity> wrapper = new LambdaQueryWrapper<UserEntity>()
                 .eq(UserEntity::getUsername, username);
         return this.getOne(wrapper);
+    }
+
+    @Override
+    public List<UserStatisticsDto> queryUserStatistics(int day) {
+        return baseMapper.queryUserStatistics(day);
     }
 }

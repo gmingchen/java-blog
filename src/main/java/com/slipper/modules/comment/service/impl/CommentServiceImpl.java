@@ -6,10 +6,13 @@ import com.slipper.common.utils.Query;
 import com.slipper.common.utils.RPage;
 import com.slipper.modules.comment.dao.CommentDao;
 import com.slipper.modules.comment.entity.CommentEntity;
+import com.slipper.modules.comment.model.dto.CommentBasicDto;
 import com.slipper.modules.comment.model.dto.CommentDto;
 import com.slipper.modules.comment.model.vo.CommentPageVo;
 import com.slipper.modules.comment.service.CommentService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author gumingchen
@@ -31,6 +34,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
                         commentPageVo.getName()
                 )
         );
+    }
+
+    @Override
+    public List<CommentBasicDto> queryLatest(int limit) {
+        return baseMapper.queryLatest(limit);
     }
 
 }

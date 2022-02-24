@@ -74,6 +74,11 @@ public class ArticleEntity implements Serializable {
      */
     private Integer published;
     /**
+     * 发布时间
+     */
+    @JsonProperty("published_at")
+    private Date publishedAt;
+    /**
      * 创建时间
      */
     @JsonProperty("created_at")

@@ -36,6 +36,8 @@ public class UserController {
      * {
      *     page: 1, // 当前页
      *     size: 10, // 页面大小
+     *     start: '', // 开始时间
+     *     end: '', // 结束时间
      *     name: '', // 用户名 / 昵称
      * }
      * @apiSuccessExample 响应结果示例

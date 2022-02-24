@@ -10,7 +10,7 @@ import java.util.Date;
  * @author gumingchen
  */
 @Data
-public class CommentDto implements Serializable {
+public class CommentBasicDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -24,15 +24,15 @@ public class CommentDto implements Serializable {
     @JsonProperty("article_id")
     private Integer articleId;
     /**
+     * 文章标题
+     */
+    @JsonProperty("article_title")
+    private String articleTitle;
+    /**
      * 用户ID
      */
     @JsonProperty("user_id")
     private Integer userId;
-    /**
-     * 创建时间
-     */
-    @JsonProperty("created_at")
-    private Date createdAt;
     /**
      * 用户名
      */
@@ -42,11 +42,9 @@ public class CommentDto implements Serializable {
      */
     private String nickname;
     /**
-     * 头像
+     * 创建时间
      */
-    private String avatar;
-    /**
-     * 性别：0-女 1-男 2-保密
-     */
-    private Integer sex;
+    @JsonProperty("created_at")
+    private Date createdAt;
+
 }

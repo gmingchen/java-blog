@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.slipper.modules.log.dao.LogDao">
+
+    <resultMap type="com.slipper.modules.log.entity.LogEntity" id="logMap">
+        <result property="id" column="id"/>
+        <result property="operation" column="operation"/>
+        <result property="url" column="url"/>
+        <result property="method" column="method"/>
+        <result property="params" column="params"/>
+        <result property="className" column="class_name"/>
+        <result property="times" column="times"/>
+        <result property="ip" column="ip"/>
+        <result property="agent" column="agent"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+<!--    IPage<LogDto> queryPage(-->
+<!--    Page<LogDto> page,-->
+<!--    @Param("start") String start,-->
+<!--    @Param("end") String end,-->
+<!--    @Param("name") String name,-->
+<!--    @Param("ip") String ip,-->
+<!--    @Param("operation") String operation);-->
+    <select id="queryPage" resultType="com.slipper.modules.log.model.dto.LogDto">
+        SELECT l.id, l.operation, l.url, l.method, l.params, l.class_name, l.times, l.ip, l.agent, l.created_at,
+               l.user_id, u.username, u.nickname
+        FROM log AS l
+        LEFT JOIN user u on u.id = l.user_id
+        <where>
+            <if test="ip != null or ip !=''">
+                AND l.ip LIKE "%${ip}%"
+            </if>
+            <if test="operation != null or operation !=''">
+                AND l.operation LIKE "%${operation}%"
+            </if>
+            <if test="start != null and start != ''">
+                AND DATE_FORMAT(l.created_at,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{start},'%Y-%m-%d')
+            </if>
+            <if test="end != null and end != ''">
+                AND DATE_FORMAT(l.created_at,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{end},'%Y-%m-%d')
+            </if>
+            <if test="name != null or name !=''">
+                AND (u.username LIKE "%${name}%" OR u.nickname LIKE "%${name}%")
+            </if>
+        </where>
+        ORDER BY l.created_at DESC
+    </select>
+
+    <!--void truncate ();-->
+    <update id="truncate">
+        truncate table log;
+    </update>
+
+<!--    List<LogBasicDto> queryLatest(@Param("limit") int limit);-->
+    <select id="queryLatest" resultType="com.slipper.modules.log.model.dto.LogBasicDto">
+        SELECT l.id, l.operation, l.ip, l.user_id, l.created_at,
+               u.username, u.nickname
+        FROM log AS l
+        LEFT JOIN user AS u ON u.id = l.user_id
+        ORDER BY l.created_at DESC
+        LIMIT #{limit}
+    </select>
+</mapper>

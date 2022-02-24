@@ -9,6 +9,7 @@ import com.slipper.common.utils.RPage;
 import com.slipper.modules.article.dao.ArticleDao;
 import com.slipper.modules.article.entity.ArticleEntity;
 import com.slipper.modules.article.entity.ArticleTagEntity;
+import com.slipper.modules.article.model.dto.ArticleBasicDto;
 import com.slipper.modules.article.model.dto.ArticleDto;
 import com.slipper.modules.article.model.vo.ArticlePageVo;
 import com.slipper.modules.article.model.vo.ArticleVo;
@@ -82,6 +83,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         articleTagService.saveBatch(articleTagList);
     }
 
+    @Override
+    public Long queryCount(Integer published) {
+        LambdaQueryWrapper<ArticleEntity> wrapper = new LambdaQueryWrapper<ArticleEntity>()
+                .eq(null != published, ArticleEntity::getPublished, published);
+
+        return this.count(wrapper);
+    }
+
+    @Override
+    public List<ArticleBasicDto> queryLatest(int limit) {
+        return baseMapper.queryLatest(limit);
+    }
+
     /**
      * 设置 文章
      * @param articleVo 文章入参
@@ -92,6 +106,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         articleEntity.setId(articleVo.getId());
         articleEntity.setTitle(articleVo.getTitle());
         articleEntity.setType(articleVo.getType());
+        if (articleVo.getPublished() == 1) {
+            articleEntity.setPublishedAt(new Date());
+        }
         try {
             articleEntity.setContent(URLDecoder.decode(articleVo.getContent(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {

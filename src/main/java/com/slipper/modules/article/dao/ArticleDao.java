@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.slipper.modules.article.entity.ArticleEntity;
+import com.slipper.modules.article.model.dto.ArticleBasicDto;
 import com.slipper.modules.article.model.dto.ArticleDto;
 import com.slipper.modules.user.model.dto.UserBasicDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -53,4 +54,10 @@ public interface ArticleDao extends BaseMapper<ArticleEntity> {
      */
     ArticleDto queryInfo(@Param("id") int id);
 
+    /**
+     * 获取最近发布的文章
+     * @param limit 数量
+     * @return
+     */
+    List<ArticleBasicDto> queryLatest(@Param("limit") int limit);
 }

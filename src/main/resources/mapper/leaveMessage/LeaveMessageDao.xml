@@ -31,4 +31,15 @@
         </where>
         ORDER BY lm.created_at DESC
     </select>
+
+<!--    List<LeaveMessageBasicDto> queryLatest(@Param("limit") int limit);-->
+    <select id="queryLatest" resultType="com.slipper.modules.leaveMessage.model.dto.LeaveMessageBasicDto">
+        SELECT lm.id, lm.content, lm.user_id, lm.created_at,
+               u.username, u.nickname
+        FROM leave_message AS lm
+        LEFT JOIN user AS u ON u.id = lm.user_id
+        WHERE lm.deleted = 0
+        ORDER BY lm.created_at DESC
+        LIMIT #{limit}
+    </select>
 </mapper>

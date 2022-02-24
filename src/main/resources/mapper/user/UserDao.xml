@@ -42,4 +42,12 @@
         WHERE id = #{id}
     </select>
 
+<!--    List<UserStatisticsDto> queryUserStatistics(@Param("day") int day);-->
+    <select id="queryUserStatistics" resultType="com.slipper.modules.user.model.dto.UserStatisticsDto">
+        SELECT DATE_FORMAT( created_at, '%Y-%m-%d' ) AS `date`, COUNT(*) AS `count`
+        FROM user
+        WHERE created_at BETWEEN SUBDATE( DATE( NOW( ) ), INTERVAL #{day} DAY ) AND DATE( NOW( ) )
+        GROUP BY `date`
+    </select>
+
 </mapper>

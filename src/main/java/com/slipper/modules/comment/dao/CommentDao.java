@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.slipper.modules.comment.entity.CommentEntity;
+import com.slipper.modules.comment.model.dto.CommentBasicDto;
 import com.slipper.modules.comment.model.dto.CommentDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 文章评论
@@ -31,4 +34,11 @@ public interface CommentDao extends BaseMapper<CommentEntity> {
                                 @Param("start") String start,
                                 @Param("end") String end,
                                 @Param("name") String name);
+
+    /**
+     * 获取最近收到的文章评论
+     * @param limit 数量
+     * @return
+     */
+    List<CommentBasicDto> queryLatest(@Param("limit") int limit);
 }

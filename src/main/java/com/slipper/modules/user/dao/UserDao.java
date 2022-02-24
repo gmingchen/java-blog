@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.slipper.modules.user.entity.UserEntity;
 import com.slipper.modules.user.model.dto.UserBasicDto;
+import com.slipper.modules.user.model.dto.UserStatisticsDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 用户
@@ -34,5 +37,12 @@ public interface UserDao extends BaseMapper<UserEntity> {
      * @return
      */
     UserBasicDto queryInfo(@Param("id") int id);
+
+    /**
+     * 最近增加用户统计
+     * @param day 最近天数
+     * @return
+     */
+    List<UserStatisticsDto> queryUserStatistics(@Param("day") int day);
 	
 }

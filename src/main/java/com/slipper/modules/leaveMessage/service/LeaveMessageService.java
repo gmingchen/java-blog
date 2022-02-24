@@ -3,8 +3,11 @@ package com.slipper.modules.leaveMessage.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.slipper.common.utils.RPage;
 import com.slipper.modules.leaveMessage.entity.LeaveMessageEntity;
+import com.slipper.modules.leaveMessage.model.dto.LeaveMessageBasicDto;
 import com.slipper.modules.leaveMessage.model.dto.LeaveMessageDto;
 import com.slipper.modules.leaveMessage.model.vo.LeaveMessagePageVo;
+
+import java.util.List;
 
 /**
  * 留言
@@ -21,6 +24,13 @@ public interface LeaveMessageService extends IService<LeaveMessageEntity> {
      * @return
      */
     RPage<LeaveMessageDto> queryPage(LeaveMessagePageVo leaveMessagePageVo);
+
+    /**
+     * 获取最近收到的留言
+     * @param limit 数量
+     * @return
+     */
+    List<LeaveMessageBasicDto> queryLatest(int limit);
 
 }
 
