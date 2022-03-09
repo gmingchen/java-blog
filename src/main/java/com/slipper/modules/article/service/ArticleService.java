@@ -59,5 +59,11 @@ public interface ArticleService extends IService<ArticleEntity> {
      */
     List<ArticleBasicDto> queryLatest(int limit);
 
+    /**
+     * 查询所有文章的阅读量
+     * @return
+     */
+    Long queryRead();
+
 }
 

@@ -10,6 +10,7 @@ import com.slipper.modules.leaveMessage.model.dto.LeaveMessageBasicDto;
 import com.slipper.modules.leaveMessage.service.LeaveMessageService;
 import com.slipper.modules.log.model.dto.LogBasicDto;
 import com.slipper.modules.log.service.LogService;
+import com.slipper.modules.praise.service.PraiseService;
 import com.slipper.modules.user.model.dto.UserStatisticsDto;
 import com.slipper.modules.user.service.UserService;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,8 @@ public class DashboardServiceImpl implements DashboardService {
     private UserService userService;
     @Resource
     private LogService logService;
+    @Resource
+    private PraiseService praiseService;
 
     @Override
     public QuantityStatisticsDto queryQuantityStatistics() {
@@ -39,7 +42,8 @@ public class DashboardServiceImpl implements DashboardService {
         quantityStatisticsDto.setArticle(articleService.queryCount(null));
         quantityStatisticsDto.setRelease(articleService.queryCount(1));
         quantityStatisticsDto.setComment(commentService.count());
-        quantityStatisticsDto.setRead(0L);
+        quantityStatisticsDto.setPraise(praiseService.count());
+        quantityStatisticsDto.setRead(articleService.queryRead());
         quantityStatisticsDto.setMessage(leaveMessageService.count());
         return quantityStatisticsDto;
     }

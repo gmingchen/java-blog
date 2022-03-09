@@ -20,6 +20,10 @@ public class QuantityStatisticsDto {
      */
     private Long comment;
     /**
+     * 点赞数量
+     */
+    private Long praise;
+    /**
      * 阅读数量
      */
     private Long read;

@@ -12,9 +12,11 @@
         <result property="categoryId" column="category_id"/>
         <result property="cover" column="cover"/>
         <result property="categoryName" column="category_name"/>
+        <result property="praise" column="praise"/>
         <result property="recommended" column="recommended"/>
         <result property="commentable" column="commentable"/>
         <result property="published" column="published"/>
+        <result property="read" column="read"/>
         <result property="publishedAt" column="published_at"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
@@ -42,8 +44,8 @@
     </select>
 
     <select id="queryPage" resultMap="articleMap">
-        SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.published_at, a.created_at, a.updated_at,
-               a.category_id, c.name AS category_name
+        SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.read, a.published_at, a.created_at, a.updated_at,
+               a.category_id, c.name AS category_name, (SELECT count(*) FROM praise AS p WHERE p.article_id = a.id) AS praise
         FROM article AS a
         LEFT JOIN category AS c ON c.id = a.category_id
         <where>
@@ -92,5 +94,11 @@
         WHERE published = 1 AND deleted = 0
         ORDER BY published_at DESC
         LIMIT #{limit}
+    </select>
+
+<!--    Long queryRead();-->
+    <select id="queryRead" resultType="Long">
+        SELECT sum(`read`)
+        FROM article
     </select>
 </mapper>

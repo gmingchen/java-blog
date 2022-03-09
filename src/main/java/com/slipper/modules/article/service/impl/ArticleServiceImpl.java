@@ -96,6 +96,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         return baseMapper.queryLatest(limit);
     }
 
+    @Override
+    public Long queryRead() {
+        return baseMapper.queryRead();
+    }
+
     /**
      * 设置 文章
      * @param articleVo 文章入参

@@ -49,6 +49,14 @@ public class ArticleDto {
      */
     private List<TagDto> tags;
     /**
+     * 点赞数量
+     */
+    private Long praise;
+    /**
+     * 阅读量
+     */
+    private Long read;
+    /**
      * 是否推荐：0-否 1-是
      */
     private Integer recommended;
