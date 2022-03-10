@@ -12,6 +12,10 @@ public class Constant {
      * token 键值
      */
     public static final String TOKEN_KEY = "token";
+    /**
+     * 用户主键 key
+     */
+    public static final String USER_KEY = "userId";
 
     /**
      * 状态码 异常信息

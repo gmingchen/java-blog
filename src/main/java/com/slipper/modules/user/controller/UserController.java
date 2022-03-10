@@ -1,8 +1,11 @@
 package com.slipper.modules.user.controller;
 
+import com.slipper.common.annotation.Login;
+import com.slipper.common.annotation.User;
 import com.slipper.common.utils.R;
 import com.slipper.common.vo.StatusVo;
 import com.slipper.modules.user.entity.UserEntity;
+import com.slipper.modules.user.model.dto.UserBasicDto;
 import com.slipper.modules.user.model.vo.UserPageVo;
 import com.slipper.modules.user.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -133,4 +136,36 @@ public class UserController {
         return R.success();
     }
 
+    /**
+     * 基础信息
+     *
+     * @api {GET} /slipper/client/user/info info
+     * @apiDescription 用户基础信息
+     * @apiVersion 1.0.0
+     * @apiGroup User
+     * @apiName info
+     * @apiParamExample 请求参数示例
+     * {}
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: {
+     *         id: '', // ID
+     *         username: '', // 用户名
+     *         nickname: '', // 昵称
+     *         sex: '', // 性别 0-女 1-男 2-保密
+     *         avatar: '', // 头像
+     *         mobile: '', // 手机号
+     *         author: '', // 是否是作者 0-否 1-是
+     *         created_at: '' // 创建时间
+     *     }
+     * }
+     */
+    @Login
+    @GetMapping("/client/user/info")
+    public R userInfo(@User UserBasicDto user){
+        return R.success(user);
+    }
 }

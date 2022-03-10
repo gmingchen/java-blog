@@ -53,7 +53,7 @@ public class LoginController {
     }
 
     /**
-     * 登录
+     * 注册
      *
      * @api {POST} /client/register
      * @apiDescription 登录

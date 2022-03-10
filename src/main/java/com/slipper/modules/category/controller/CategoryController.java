@@ -200,4 +200,33 @@ public class CategoryController {
         return R.success(categoryService.list());
     }
 
+    /**
+     * 所有列表
+     *
+     * @api {GET} /slipper/client/category/list
+     * @apiDescription 所有分类列表
+     * @apiVersion 1.0.0
+     * @apiGroup Category
+     * @apiName list
+     * @apiParamExample 请求参数示例
+     * {
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: [{
+     *         id: '', // ID
+     *         name: '', // 用户名
+     *         created_at: '', // 创建时间
+     *         updated_at: '' // 更新时间
+     *     }
+     * }
+     */
+    @GetMapping("/client/category/list")
+    public R allList(){
+        return R.success(categoryService.list());
+    }
+
 }

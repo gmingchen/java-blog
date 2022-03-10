@@ -1,8 +1,16 @@
 package com.slipper.config;
 
+import com.slipper.common.annotation.User;
+import com.slipper.common.interceptor.AuthorizationInterceptor;
+import com.slipper.common.resolver.UserHandlerMethodArgumentResolver;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * web mvc config
@@ -13,6 +21,21 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    @Resource
+    private AuthorizationInterceptor authorizationInterceptor;
+
+    @Resource
+    private UserHandlerMethodArgumentResolver userHandlerMethodArgumentResolver;
+
+    /**
+     * 添加拦截器
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/client/**");
+    }
 
     /**
      * 页面跨域访问Controller过滤
@@ -27,5 +50,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .maxAge(3600);
+    }
+
+    /**
+     * 添加解析器
+     * @param resolvers
+     */
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(userHandlerMethodArgumentResolver);
     }
 }
