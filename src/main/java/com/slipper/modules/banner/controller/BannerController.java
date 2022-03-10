@@ -1,5 +1,6 @@
 package com.slipper.modules.banner.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.slipper.common.utils.R;
 import com.slipper.common.validator.group.Create;
 import com.slipper.common.validator.group.Update;
@@ -228,32 +229,42 @@ public class BannerController {
         return R.success();
     }
 
-//    /**
-//     * 所有列表
-//     *
-//     * @api {GET} /slipper/console/banner/list
-//     * @apiDescription 所有轮播图列表
-//     * @apiVersion 1.0.0
-//     * @apiGroup Banner
-//     * @apiName list
-//     * @apiParamExample 请求参数示例
-//     * {
-//     * }
-//     * @apiSuccessExample 响应结果示例
-//     * {
-//     *     code: 0,
-//     *     status: 'success',
-//     *     message: '成功!',
-//     *     data: [{
-//     *         id: '', // ID
-//     *         name: '', // 用户名
-//     *         created_at: '', // 创建时间
-//     *         updated_at: '' // 更新时间
-//     *     }
-//     * }
-//     */
-//    @GetMapping("/client/banner/list")
-//    public R list(){
-//        return R.success(bannerService.list());
-//    }
+    /**
+     * 所有列表
+     *
+     * @api {GET} /slipper/console/banner/list
+     * @apiDescription 所有轮播图列表
+     * @apiVersion 1.0.0
+     * @apiGroup Banner
+     * @apiName list
+     * @apiParamExample 请求参数示例
+     * {
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: [{
+     *         id: '', // ID
+     *         title: '', // 标题
+     *         image: '', // 图片
+     *         watermark: '', // 水印图片
+     *         url: '', // 跳转路径
+     *         type: '', // 类型 0-http 1-路由
+     *         sort: '', // 排序
+     *         status: '', // 状态 0-禁用 1-启用
+     *         created_at: '', // 创建时间
+     *         updated_at: '' // 更新时间
+     *     }]
+     * }
+     */
+    @GetMapping("/client/banner/list")
+    public R list(){
+        LambdaQueryWrapper<BannerEntity> wrapper = new LambdaQueryWrapper<BannerEntity>()
+                .eq(BannerEntity::getStatus, 1)
+                .orderByDesc(BannerEntity::getSort)
+                .orderByDesc(BannerEntity::getCreatedAt);
+        return R.success(bannerService.list(wrapper));
+    }
 }
