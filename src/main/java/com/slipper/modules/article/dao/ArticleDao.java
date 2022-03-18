@@ -65,5 +65,27 @@ public interface ArticleDao extends BaseMapper<ArticleEntity> {
      * 查询所有文章的阅读量
      * @return
      */
-    Long queryRead();
+    Long queryAllRead();
+
+    /**
+     * 用户端-获取最近发布的文章
+     * @param limit 数量
+     * @return
+     */
+    List<ArticleDto> queryLatestPublished(@Param("limit") int limit);
+
+    /**
+     * 用户端-获取推荐的文章
+     * @param limit 数量
+     * @return
+     */
+    List<ArticleBasicDto> queryRecommended(@Param("limit") int limit);
+
+    /**
+     * 用户端-获取人气文章
+     * @param limit 数量
+     * @return
+     */
+    List<ArticleBasicDto> queryRead(@Param("limit") int limit);
+
 }

@@ -97,8 +97,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
     }
 
     @Override
-    public Long queryRead() {
-        return baseMapper.queryRead();
+    public Long queryAllRead() {
+        return baseMapper.queryAllRead();
+    }
+
+    @Override
+    public List<ArticleDto> queryLatestPublished(int limit) {
+        return baseMapper.queryLatestPublished(limit);
+    }
+
+    @Override
+    public List<ArticleBasicDto> queryRecommended(int limit) {
+        return baseMapper.queryRecommended(limit);
+    }
+
+    @Override
+    public List<ArticleBasicDto> queryRead(int limit) {
+        return baseMapper.queryRead(limit);
     }
 
     /**

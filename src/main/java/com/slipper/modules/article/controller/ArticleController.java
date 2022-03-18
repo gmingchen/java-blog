@@ -68,12 +68,16 @@ public class ArticleController {
      *         	   id: '', // ID
      *         	   title: '', // 标题
      *         	   describe: '', // 简介描述
+     *         	   cover: '', // 封面图
      *         	   category_id: '', // 分类ID
      *         	   category_name: '', // 分类名称
      *         	   tags: [{
      *         	       id: '', // 标签ID
      *         	       name: '', // 标签名称
      *         	   }],
+     *         	   praise: '', // 点赞数量
+     *         	   comment: '', // 评论数量
+     *         	   read: '', // 阅读量
      *         	   recommended: '', // 是否推荐：0-否 1-是
      *         	   commentable: '', // 是否可以评论：0-否 1-是
      *         	   published: '', // 是否发布：0-否 1-是
@@ -111,12 +115,16 @@ public class ArticleController {
      *         title: '', // 标题
      *         content: '', // 内容
      *         describe: '', // 简介描述
+     *         cover: '', // 封面图
      *         category_id: '', // 分类ID
      *         category_name: '', // 分类名称
      *         tags: [{
      *             id: '', // 标签ID
      *             name: '', // 标签名称
      *         }],
+     *         praise: '', // 点赞数量
+     *         comment: '', // 评论数量
+     *         read: '', // 阅读量
      *         recommended: '', // 是否推荐：0-否 1-是
      *         commentable: '', // 是否可以评论：0-否 1-是
      *         published: '', // 是否发布：0-否 1-是
@@ -144,6 +152,7 @@ public class ArticleController {
      *     title: '', // 标题
      *     content: '', // 内容
      *     describe: '', // 简介描述
+     *     cover: '', // 封面图
      *     category_id: '', // 分类ID
      *     tags: [], // 标签ID
      *     recommended: '', // 是否推荐：0-否 1-是
@@ -176,6 +185,7 @@ public class ArticleController {
      *     title: '', // 标题
      *     content: '', // 内容
      *     describe: '', // 简介描述
+     *     cover: '', // 封面图
      *     category_id: '', // 分类ID
      *     tags: [], // 标签ID
      *     recommended: '', // 是否推荐：0-否 1-是
@@ -310,6 +320,117 @@ public class ArticleController {
         }
         articleService.updateById(article);
         return R.success();
+    }
+
+    /**
+     * 最新发布列表
+     *
+     * @api {POST} /slipper/client/article/latest latest
+     * @apiDescription 文章最新发布列表
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName latest
+     * @apiParamExample 请求参数示例
+     * {
+     *     limit: '' // 数量
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: [{
+     *         id: '', // ID
+     *         title: '', // 标题
+     *         describe: '', // 简介描述
+     *         cover: '', // 封面图
+     *         category_id: '', // 分类ID
+     *         category_name: '', // 分类名称
+     *         tags: [{
+     *             id: '', // 标签ID
+     *             name: '', // 标签名称
+     *         }],
+     *         praise: '', // 点赞数量
+     *         comment: '', // 评论数量
+     *         read: '', // 阅读量
+     *         recommended: '', // 是否推荐：0-否 1-是
+     *         commentable: '', // 是否可以评论：0-否 1-是
+     *         published: '', // 是否发布：0-否 1-是
+     *         published_at: '', // 发布时间
+     *         created_at: '', // 创建时间
+     *         updated_at: '' // 更新时间
+     *     }]
+     * }
+     */
+    @GetMapping("/client/article/latest")
+    public R latest(int limit){
+        return R.success(articleService.queryLatestPublished(limit));
+    }
+
+    /**
+     * 获取推荐的文章
+     *
+     * @api {GET} /slipper/client/article/recommended recommended
+     * @apiDescription 获取推荐的文章
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName recommended
+     * @apiParamExample 请求参数示例
+     * {
+     *     limit: '' // 数量
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: [{
+     *         id: '', // ID
+     *         title: '', // 标题
+     *         describe: '', // 标题
+     *         cover: '', // 封面图
+     *         published_at: '', // 发布时间
+     *         created_at: '', // 创建时间
+     *         updated_at: '', // 更新时间
+     *     }]
+     * }
+     */
+    @GetMapping("/client/article/recommended")
+    public R recommendedArticle(int limit){
+        return R.success(articleService.queryRecommended(limit));
+    }
+
+    /**
+     * 获取人气的文章
+     *
+     * @api {GET} /slipper/client/article/read read
+     * @apiDescription 获取推荐的文章
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName read
+     * @apiParamExample 请求参数示例
+     * {
+     *     limit: '' // 数量
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: [{
+     *         id: '', // ID
+     *         title: '', // 标题
+     *         describe: '', // 标题
+     *         cover: '', // 封面图
+     *         published_at: '', // 发布时间
+     *         created_at: '', // 创建时间
+     *         updated_at: '', // 更新时间
+     *     }]
+     * }
+     */
+    @GetMapping("/client/article/read")
+    public R readArticle(int limit){
+        return R.success(articleService.queryRead(limit));
     }
 
 }

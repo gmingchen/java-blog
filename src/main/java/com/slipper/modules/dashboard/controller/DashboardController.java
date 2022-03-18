@@ -96,6 +96,8 @@ public class DashboardController {
      *     data: [{
      *         id: '', // ID
      *         title: '', // 标题
+     *         describe: '', // 标题
+     *         cover: '', // 封面图
      *         published_at: '', // 发布时间
      *         created_at: '', // 创建时间
      *         updated_at: '', // 更新时间

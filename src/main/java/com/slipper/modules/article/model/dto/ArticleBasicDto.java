@@ -19,6 +19,14 @@ public class ArticleBasicDto {
      */
     private String title;
     /**
+     * 简介描述
+     */
+    private String describe;
+    /**
+     * 封面图
+     */
+    private String cover;
+    /**
      * 发布时间
      */
     @JsonProperty("published_at")

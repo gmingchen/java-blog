@@ -13,10 +13,11 @@
         <result property="cover" column="cover"/>
         <result property="categoryName" column="category_name"/>
         <result property="praise" column="praise"/>
+        <result property="comment" column="comment"/>
+        <result property="read" column="read"/>
         <result property="recommended" column="recommended"/>
         <result property="commentable" column="commentable"/>
         <result property="published" column="published"/>
-        <result property="read" column="read"/>
         <result property="publishedAt" column="published_at"/>
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
@@ -45,7 +46,9 @@
 
     <select id="queryPage" resultMap="articleMap">
         SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.read, a.published_at, a.created_at, a.updated_at,
-               a.category_id, c.name AS category_name, (SELECT count(*) FROM praise AS p WHERE p.article_id = a.id) AS praise
+               a.category_id, c.name AS category_name,
+                (SELECT count(*) FROM praise AS p WHERE p.article_id = a.id) AS praise,
+                (SELECT count(*) FROM comment AS c WHERE c.article_id = a.id and c.deleted = 0) AS comment
         FROM article AS a
         LEFT JOIN category AS c ON c.id = a.category_id
         <where>
@@ -89,16 +92,48 @@
 
 <!--    List<ArticleBasicDto> queryLatest(@Param("limit") int limit);-->
     <select id="queryLatest" resultType="com.slipper.modules.article.model.dto.ArticleBasicDto">
-        SELECT id, title, published_at, created_at, updated_at
+        SELECT id, title, `describe`, cover, published_at, created_at, updated_at
         FROM article
         WHERE published = 1 AND deleted = 0
         ORDER BY published_at DESC
         LIMIT #{limit}
     </select>
 
-<!--    Long queryRead();-->
-    <select id="queryRead" resultType="Long">
+<!--    Long queryAllRead();-->
+    <select id="queryAllRead" resultType="Long">
         SELECT sum(`read`)
         FROM article
     </select>
+
+<!--    List<ArticleDto> queryLatestPublished(@Param("limit") int limit);-->
+    <select id="queryLatestPublished" resultMap="articleMap">
+        SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.read, a.published_at, a.created_at, a.updated_at,
+                a.category_id, c.name AS category_name,
+                (SELECT count(*) FROM praise AS p WHERE p.article_id = a.id) AS praise,
+                (SELECT count(*) FROM comment AS ct WHERE ct.article_id = a.id and ct.deleted = 0) AS comment
+        FROM article AS a
+        LEFT JOIN category AS c ON c.id = a.category_id
+        WHERE a.deleted = 0 and a.published = 1
+        ORDER BY a.published_at DESC
+        LIMIT #{limit}
+    </select>
+
+<!--    List<ArticleBasicDto> queryRecommended(@Param("limit") int limit);-->
+    <select id="queryRecommended" resultType="com.slipper.modules.article.model.dto.ArticleBasicDto">
+        SELECT id, title, `describe`, cover, published_at, created_at, updated_at
+        FROM article
+        WHERE published = 1 AND recommended = 1 AND deleted = 0
+        ORDER BY published_at DESC
+        LIMIT #{limit}
+    </select>
+
+<!--    List<ArticleBasicDto> queryRead(@Param("limit") int limit);-->
+    <select id="queryRead" resultType="com.slipper.modules.article.model.dto.ArticleBasicDto">
+        SELECT id, title, `describe`, cover, published_at, created_at, updated_at
+        FROM article
+        WHERE published = 1 AND deleted = 0
+        ORDER BY `read` DESC , published_at DESC
+        LIMIT #{limit}
+    </select>
+
 </mapper>

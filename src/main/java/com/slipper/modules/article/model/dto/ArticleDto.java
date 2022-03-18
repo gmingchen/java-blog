@@ -31,14 +31,14 @@ public class ArticleDto {
      */
     private String describe;
     /**
+     * 封面图
+     */
+    private String cover;
+    /**
      * 分类ID
      */
     @JsonProperty("category_id")
     private Integer categoryId;
-    /**
-     * 封面图
-     */
-    private String cover;
     /**
      * 分类名称
      */
@@ -52,6 +52,10 @@ public class ArticleDto {
      * 点赞数量
      */
     private Long praise;
+    /**
+     * 评论数量
+     */
+    private Long comment;
     /**
      * 阅读量
      */

@@ -43,7 +43,7 @@ public class DashboardServiceImpl implements DashboardService {
         quantityStatisticsDto.setRelease(articleService.queryCount(1));
         quantityStatisticsDto.setComment(commentService.count());
         quantityStatisticsDto.setPraise(praiseService.count());
-        quantityStatisticsDto.setRead(articleService.queryRead());
+        quantityStatisticsDto.setRead(articleService.queryAllRead());
         quantityStatisticsDto.setMessage(leaveMessageService.count());
         return quantityStatisticsDto;
     }
