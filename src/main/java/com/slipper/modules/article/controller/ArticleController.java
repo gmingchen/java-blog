@@ -433,4 +433,38 @@ public class ArticleController {
         return R.success(articleService.queryRead(limit));
     }
 
+    /**
+     * 搜索获取文章
+     *
+     * @api {GET} /slipper/client/article/search search
+     * @apiDescription 搜索获取文章
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName search
+     * @apiParamExample 请求参数示例
+     * {
+     *     keyword: '' // 关键字
+     *     limit: '' // 数量
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: [{
+     *         id: '', // ID
+     *         title: '', // 标题
+     *         describe: '', // 标题
+     *         cover: '', // 封面图
+     *         published_at: '', // 发布时间
+     *         created_at: '', // 创建时间
+     *         updated_at: '', // 更新时间
+     *     }]
+     * }
+     */
+    @GetMapping("/client/article/searchSuggest")
+    public R querySearchSuggest(String keyword, int limit){
+        return R.success(articleService.querySearchSuggest(keyword, limit));
+    }
+
 }

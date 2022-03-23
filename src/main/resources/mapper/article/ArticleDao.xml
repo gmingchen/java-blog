@@ -136,4 +136,16 @@
         LIMIT #{limit}
     </select>
 
+<!--    List<ArticleBasicDto> querySearchSuggest(@Param("keyword") String keyword, @Param("limit") int limit);-->
+    <select id="querySearchSuggest" resultType="com.slipper.modules.article.model.dto.ArticleBasicDto">
+        SELECT id, title, `describe`, cover, published_at, created_at, updated_at
+        FROM article
+        WHERE published = 1 AND deleted = 0
+        <if test="keyword != null and keyword !=''">
+            AND (title LIKE "%${keyword}%" or `describe` LIKE "%${keyword}%" or content LIKE "%${keyword}%")
+        </if>
+        ORDER BY recommended DESC, `read` DESC , published_at DESC
+        LIMIT #{limit}
+    </select>
+
 </mapper>

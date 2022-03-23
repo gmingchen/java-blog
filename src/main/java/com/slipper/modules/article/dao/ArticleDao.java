@@ -88,4 +88,12 @@ public interface ArticleDao extends BaseMapper<ArticleEntity> {
      */
     List<ArticleBasicDto> queryRead(@Param("limit") int limit);
 
+    /**
+     * 用户端-搜索获取建议文章
+     * @param keyword 关键字
+     * @param limit 数量
+     * @return
+     */
+    List<ArticleBasicDto> querySearchSuggest(@Param("keyword") String keyword, @Param("limit") int limit);
+
 }

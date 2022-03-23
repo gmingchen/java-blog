@@ -15,6 +15,7 @@ import com.slipper.modules.article.model.vo.ArticlePageVo;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.service.ArticleService;
 import com.slipper.modules.article.service.ArticleTagService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -114,6 +115,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
     @Override
     public List<ArticleBasicDto> queryRead(int limit) {
         return baseMapper.queryRead(limit);
+    }
+
+    @Override
+    public List<ArticleBasicDto> querySearchSuggest(String keyword, int limit) {
+        if (StringUtils.isNotBlank(keyword)) {
+            return baseMapper.querySearchSuggest(keyword, limit);
+        }
+        return new ArrayList<>();
     }
 
     /**

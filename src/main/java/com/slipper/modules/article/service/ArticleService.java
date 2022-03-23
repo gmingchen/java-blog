@@ -87,5 +87,13 @@ public interface ArticleService extends IService<ArticleEntity> {
      */
     List<ArticleBasicDto> queryRead(int limit);
 
+    /**
+     * 用户端-搜索获取建议文章
+     * @param keyword 关键字
+     * @param limit 数量
+     * @return
+     */
+    List<ArticleBasicDto> querySearchSuggest(String keyword, int limit);
+
 }
 
