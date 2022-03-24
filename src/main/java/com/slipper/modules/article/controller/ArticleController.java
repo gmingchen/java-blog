@@ -1,5 +1,8 @@
 package com.slipper.modules.article.controller;
 
+import com.slipper.common.annotation.Login;
+import com.slipper.common.annotation.User;
+import com.slipper.common.utils.Constant;
 import com.slipper.common.utils.R;
 import com.slipper.common.validator.group.Create;
 import com.slipper.common.validator.group.Update;
@@ -12,6 +15,7 @@ import com.slipper.modules.category.entity.CategoryEntity;
 import com.slipper.modules.category.model.vo.CategoryPageVo;
 import com.slipper.modules.category.service.CategoryService;
 import com.slipper.modules.user.entity.UserEntity;
+import com.slipper.modules.user.model.dto.UserBasicDto;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.Null;
 import java.util.Date;
 import java.util.List;
 
@@ -465,6 +470,56 @@ public class ArticleController {
     @GetMapping("/client/article/searchSuggest")
     public R querySearchSuggest(String keyword, int limit){
         return R.success(articleService.querySearchSuggest(keyword, limit));
+    }
+
+    /**
+     * 搜索文章详情信息
+     *
+     * @api {GET} /slipper/client/article/details details
+     * @apiDescription 搜索文章详情信息
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName details
+     * @apiParamExample 请求参数示例
+     * {
+     *     id: '', // ID
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: {
+     *         id: '', // ID
+     *         title: '', // 标题
+     *         content: '', // 内容
+     *         describe: '', // 简介描述
+     *         cover: '', // 封面图
+     *         category_id: '', // 分类ID
+     *         category_name: '', // 分类名称
+     *         tags: [{
+     *             id: '', // 标签ID
+     *             name: '', // 标签名称
+     *         }],
+     *         praise: '', // 点赞数量
+     *         comment: '', // 评论数量
+     *         read: '', // 阅读量
+     *         recommended: '', // 是否推荐：0-否 1-是
+     *         commentable: '', // 是否可以评论：0-否 1-是
+     *         published: '', // 是否发布：0-否 1-是
+     *         published_at: '', // 发布时间
+     *         created_at: '', // 创建时间
+     *         updated_at: '' // 更新时间
+     *     }
+     * }
+     */
+    @User
+    @GetMapping("/client/article/details")
+    public R details(@User UserBasicDto user, Integer id){
+        if (id == null) {
+            return R.error(Constant.VERIFICATION_ERROR_CODE, "ID不能为空");
+        }
+        return R.success(articleService.queryDetails(id));
     }
 
 }

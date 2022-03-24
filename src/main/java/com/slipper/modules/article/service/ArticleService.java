@@ -7,7 +7,6 @@ import com.slipper.modules.article.model.dto.ArticleBasicDto;
 import com.slipper.modules.article.model.dto.ArticleDto;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.model.vo.ArticlePageVo;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -94,6 +93,13 @@ public interface ArticleService extends IService<ArticleEntity> {
      * @return
      */
     List<ArticleBasicDto> querySearchSuggest(String keyword, int limit);
+
+    /**
+     * 用户端-查询文章详情
+     * @param id ID
+     * @return
+     */
+    ArticleDto queryDetails(int id);
 
 }
 

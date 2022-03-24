@@ -8,12 +8,10 @@ import com.slipper.modules.user.entity.UserEntity;
 import com.slipper.modules.user.model.dto.UserBasicDto;
 import com.slipper.modules.user.model.vo.UserPageVo;
 import com.slipper.modules.user.service.UserService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
 
 /**
  * 用户

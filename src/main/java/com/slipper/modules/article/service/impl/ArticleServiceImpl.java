@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.slipper.common.exception.RunException;
+import com.slipper.common.utils.Constant;
+import com.slipper.common.utils.HttpContextUtils;
 import com.slipper.common.utils.Query;
 import com.slipper.common.utils.RPage;
 import com.slipper.modules.article.dao.ArticleDao;
@@ -123,6 +126,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
             return baseMapper.querySearchSuggest(keyword, limit);
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public ArticleDto queryDetails(int id) {
+        System.out.println(HttpContextUtils.getIp());
+        ArticleDto articleDto = baseMapper.queryDetails(id);
+        if (articleDto == null) {
+            throw new RunException(Constant.WARNING_CODE, "该文章不存在！");
+        }
+        return baseMapper.queryDetails(id);
     }
 
     /**

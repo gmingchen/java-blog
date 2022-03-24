@@ -1,6 +1,7 @@
 package com.slipper.common.interceptor;
 
 import com.slipper.common.annotation.Login;
+import com.slipper.common.annotation.User;
 import com.slipper.common.exception.RunException;
 import com.slipper.common.utils.Constant;
 import com.slipper.common.utils.JwtUtils;
@@ -32,18 +33,29 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
 
+        String token = request.getHeader(Constant.TOKEN_KEY);
+        Integer userId = null;
         // 判断接口是否需要登录
         Login login = method.getAnnotation(Login.class);
         if (login != null) {
-            String token = request.getHeader(Constant.TOKEN_KEY);
             if (StringUtils.isBlank(token)) {
                 throw new RunException(Constant.WARNING_CODE, "请先登录！");
             }
             if (!jwt.validate(token)) {
                 throw new RunException(Constant.WARNING_CODE, "登录已过期，请先登录！");
             }
-            int userId = (int)jwt.getClaims(token).get("id");
+            userId = (Integer) jwt.getClaims(token).get("id");
+        }
 
+        // 判断接口是否需要获取用户信息
+        User user = method.getAnnotation(User.class);
+        if (user != null) {
+            if (StringUtils.isNotBlank(token) && jwt.validate(token)) {
+                userId = (Integer) jwt.getClaims(token).get("id");
+            }
+        }
+
+        if (userId != null) {
             request.setAttribute(Constant.USER_KEY, userId);
         }
 

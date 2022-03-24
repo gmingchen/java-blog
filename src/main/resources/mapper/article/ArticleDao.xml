@@ -101,7 +101,7 @@
 
 <!--    Long queryAllRead();-->
     <select id="queryAllRead" resultType="Long">
-        SELECT sum(`read`)
+        SELECT IFNULL(sum(`read`), 0)
         FROM article
     </select>
 
@@ -146,6 +146,17 @@
         </if>
         ORDER BY recommended DESC, `read` DESC , published_at DESC
         LIMIT #{limit}
+    </select>
+
+<!--    ArticleDto queryDetails(@Param("id") int id);-->
+    <select id="queryDetails" resultMap="articleMap">
+        SELECT a.id, a.title, a.type, a.describe, a.cover, a.content, a.recommended, a.commentable, a.published, a.read, a.published_at, a.created_at, a.updated_at,
+        a.category_id, c.name AS category_name,
+        (SELECT count(*) FROM praise AS p WHERE p.article_id = a.id) AS praise,
+        (SELECT count(*) FROM comment AS c WHERE c.article_id = a.id and c.deleted = 0) AS comment
+        FROM article AS a
+        LEFT JOIN category AS c ON c.id = a.category_id
+        WHERE a.id = #{id} AND a.deleted = 0 AND a.published = 1
     </select>
 
 </mapper>

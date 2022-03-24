@@ -32,7 +32,7 @@ public class ArticleEntity implements Serializable {
     /**
      * 标题
      */
-    @Length(min = 1, max = 20, message = "标题由1-20位字符组成", groups = {Create.class, Update.class})
+    @Length(min = 1, max = 50, message = "标题由1-50位字符组成", groups = {Create.class, Update.class})
     private String title;
     /**
      * 文章内容类型 1-markdown 2-富文本
@@ -48,7 +48,7 @@ public class ArticleEntity implements Serializable {
     /**
      * 简介描述
      */
-    @Length(min = 1, max = 100, message = "描述由1-100位字符组成", groups = {Create.class, Update.class})
+    @Length(min = 1, max = 200, message = "描述由1-200位字符组成", groups = {Create.class, Update.class})
     @TableField("`describe`")
     private String describe;
     /**

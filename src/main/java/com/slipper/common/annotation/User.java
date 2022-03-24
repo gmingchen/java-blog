@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * 当前登录用户信息
  * @author gumingchen
  */
-@Target(ElementType.PARAMETER)
+@Target(value = {ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface User {
 }
