@@ -96,10 +96,11 @@ public interface ArticleService extends IService<ArticleEntity> {
 
     /**
      * 用户端-查询文章详情
-     * @param id ID
+     * @param id 文章ID
+     * @param userId 用户ID
      * @return
      */
-    ArticleDto queryDetails(int id);
+    ArticleDto queryDetails(int id, Integer userId);
 
 }
 

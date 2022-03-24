@@ -519,7 +519,7 @@ public class ArticleController {
         if (id == null) {
             return R.error(Constant.VERIFICATION_ERROR_CODE, "ID不能为空");
         }
-        return R.success(articleService.queryDetails(id));
+        return R.success(articleService.queryDetails(id, user != null ? user.getId() : null));
     }
 
 }

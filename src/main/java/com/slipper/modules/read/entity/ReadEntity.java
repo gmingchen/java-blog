@@ -12,14 +12,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 文章点赞
+ * 文章阅读
  *
  * @author gumingchen
  * @email 1240235512@qq.com
  * @date 1995-08-30 00:00:00
  */
 @Data
-@TableName(value = "praise")
+@TableName(value = "`read`")
 public class ReadEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +36,11 @@ public class ReadEntity implements Serializable {
      * 用户ID
      */
     @JsonProperty("user_id")
-    @NotNull(message = "用户ID不能为空", groups = Update.class)
     private Integer userId;
+    /**
+     * IP地址
+     */
+    private String ip;
     /**
      * 创建时间
      */

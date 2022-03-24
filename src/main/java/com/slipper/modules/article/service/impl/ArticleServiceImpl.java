@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.slipper.common.exception.RunException;
-import com.slipper.common.utils.Constant;
-import com.slipper.common.utils.HttpContextUtils;
-import com.slipper.common.utils.Query;
-import com.slipper.common.utils.RPage;
+import com.slipper.common.utils.*;
 import com.slipper.modules.article.dao.ArticleDao;
 import com.slipper.modules.article.entity.ArticleEntity;
 import com.slipper.modules.article.entity.ArticleTagEntity;
@@ -18,6 +15,8 @@ import com.slipper.modules.article.model.vo.ArticlePageVo;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.service.ArticleService;
 import com.slipper.modules.article.service.ArticleTagService;
+import com.slipper.modules.read.entity.ReadEntity;
+import com.slipper.modules.read.service.ReadService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +35,8 @@ import java.util.List;
 public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> implements ArticleService {
     @Resource
     private ArticleTagService articleTagService;
+    @Resource
+    private ReadService readService;
 
     @Override
     public RPage<ArticleDto> queryPage(ArticlePageVo articlePageVo) {
@@ -128,14 +129,37 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         return new ArrayList<>();
     }
 
+    @Transactional
     @Override
-    public ArticleDto queryDetails(int id) {
-        System.out.println(HttpContextUtils.getIp());
+    public ArticleDto queryDetails(int id, Integer userId) {
         ArticleDto articleDto = baseMapper.queryDetails(id);
         if (articleDto == null) {
             throw new RunException(Constant.WARNING_CODE, "该文章不存在！");
         }
-        return baseMapper.queryDetails(id);
+
+        String ip = HttpContextUtils.getIp();
+        String today = DateUtils.format(new Date(), DateUtils.DATE_FORMAT);
+        LambdaQueryWrapper<ReadEntity> queryWrapper = new LambdaQueryWrapper<ReadEntity>()
+                .and((wrapper) -> {
+                    wrapper.eq(userId != null, ReadEntity::getUserId, userId)
+                            .or().eq(StringUtils.isNotBlank(ip), ReadEntity::getIp, ip);
+                })
+                .ge(ReadEntity::getCreatedAt, today + " 00:00:00")
+                .le(ReadEntity::getCreatedAt, today + " 23:59:59");
+        long count = readService.count(queryWrapper);
+        if (count == 0) {
+            ReadEntity readEntity = new ReadEntity();
+            readEntity.setArticleId(id);
+            readEntity.setUserId(userId);
+            readEntity.setIp(ip);
+            readEntity.setCreatedAt(new Date());
+            readService.save(readEntity);
+            baseMapper.readingPlusOne(id);
+        }
+
+        articleDto = baseMapper.queryDetails(id);
+
+        return articleDto;
     }
 
     /**

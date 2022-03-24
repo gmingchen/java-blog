@@ -159,4 +159,11 @@
         WHERE a.id = #{id} AND a.deleted = 0 AND a.published = 1
     </select>
 
+<!--    void readingPlusOne(@Param("id") int id);-->
+    <update id="readingPlusOne">
+        UPDATE article
+        SET `read` = `read` + 1
+        WHERE id = #{id}
+    </update>
+
 </mapper>

@@ -12,7 +12,5 @@ import com.slipper.modules.read.entity.ReadEntity;
  */
 public interface ReadService extends IService<ReadEntity> {
 
-
-
 }
 
