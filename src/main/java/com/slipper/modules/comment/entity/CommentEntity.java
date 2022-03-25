@@ -30,7 +30,7 @@ public class CommentEntity implements Serializable {
     /**
      * 内容
      */
-    @Length(min = 1, max = 200, message = "内容由1-200位字符组成")
+    @Length(min = 1, max = 500, message = "内容由1-500位字符组成")
     private String content;
     /**
      * 文章ID

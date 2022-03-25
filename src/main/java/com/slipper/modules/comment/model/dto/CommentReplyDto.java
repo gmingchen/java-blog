@@ -63,6 +63,10 @@ public class CommentReplyDto implements Serializable {
     @JsonProperty("from_sex")
     private Integer fromSex;
     /**
+     * 回复用户是否是作者 0-否 1-是
+     */
+    private Integer fromAuthor;
+    /**
      * 目标用户的ID
      */
     @JsonProperty("to_user_id")
@@ -87,4 +91,8 @@ public class CommentReplyDto implements Serializable {
      */
     @JsonProperty("to_sex")
     private Integer toSex;
+    /**
+     * 目标用户是否是作者 0-否 1-是
+     */
+    private Integer toAuthor;
 }

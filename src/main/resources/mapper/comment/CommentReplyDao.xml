@@ -20,7 +20,7 @@
     <select id="queryPage" resultType="com.slipper.modules.comment.model.dto.CommentReplyDto">
         SELECT cr.id, cr.content, cr.comment_id, cr.comment_reply_id, cr.type, cr.created_at,
                fu.id AS from_user_id, fu.username AS from_username, fu.nickname AS from_nickname, fu.avatar AS from_avatar, fu.sex AS from_sex,
-               tu.id AS to_user_id, tu.username AS to_username, tu.nickname AS to_nickname, tu.avatar AS to_avatar, fu.sex AS to_sex
+               tu.id AS to_user_id, tu.username AS to_username, tu.nickname AS to_nickname, tu.avatar AS to_avatar, tu.sex AS to_sex
         FROM comment__reply AS cr
         LEFT JOIN comment AS c ON c.id = cr.comment_id
         LEFT JOIN user AS fu ON fu.id = cr.from_user_id

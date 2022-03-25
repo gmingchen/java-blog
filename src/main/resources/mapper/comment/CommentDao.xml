@@ -12,6 +12,21 @@
         <result property="deleted" column="deleted"/>
     </resultMap>
 
+    <resultMap type="com.slipper.modules.comment.model.dto.CommentAndReplyDto" id="commentAndReplyMap">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="articleId" column="article_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="username" column="username"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <result property="sex" column="sex"/>
+        <result property="author" column="author"/>
+        <collection property="replies" column="{id = id}" select="queryReplies">
+        </collection>
+    </resultMap>
+
 <!--    IPage<CommentDto> queryPage(Page<CommentDto> page,-->
 <!--    @Param("start") Integer id,-->
 <!--    @Param("start") String start,-->
@@ -48,4 +63,27 @@
         ORDER BY c.created_at DESC
         LIMIT #{limit}
     </select>
+
+<!--    IPage<CommentDto> queryPageByArticleId(Page<CommentDto> page, @Param("id") Integer id);-->
+    <select id="queryReplies" resultType="com.slipper.modules.comment.model.dto.CommentReplyDto">
+        SELECT cr.id, cr.content, cr.comment_id, cr.comment_reply_id, cr.type, cr.created_at,
+               fu.id AS from_user_id, fu.username AS from_username, fu.nickname AS from_nickname, fu.avatar AS from_avatar, fu.sex AS from_sex, fu.author as from_author,
+               tu.id AS to_user_id, tu.username AS to_username, tu.nickname AS to_nickname, tu.avatar AS to_avatar, tu.sex AS to_sex, tu.author as to_author
+        FROM comment__reply AS cr
+                 LEFT JOIN comment AS c ON c.id = cr.comment_id
+                 LEFT JOIN user AS fu ON fu.id = cr.from_user_id
+                 LEFT JOIN user AS tu ON tu.id = cr.to_user_id
+        WHERE cr.deleted = 0 AND cr.comment_id = #{id}
+        ORDER BY cr.created_at DESC
+    </select>
+
+    <select id="queryPageByArticleId" resultMap="commentAndReplyMap">
+        SELECT c.id, c.content, c.article_id, c.user_id, c.created_at, c.author,
+        u.username, u.nickname, u.avatar, u.sex
+        FROM comment AS c
+        LEFT JOIN user AS u ON u.id = c.user_id
+        WHERE c.article_id = #{id} AND c.deleted = 0
+        ORDER BY c.created_at DESC
+    </select>
+
 </mapper>

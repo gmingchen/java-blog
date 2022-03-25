@@ -76,6 +76,7 @@ public class ArticleEntity implements Serializable {
     /**
      * 阅读量
      */
+    @TableField("`read`")
     private Long read;
     /**
      * 发布时间

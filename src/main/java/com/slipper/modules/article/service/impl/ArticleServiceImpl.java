@@ -144,6 +144,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
                     wrapper.eq(userId != null, ReadEntity::getUserId, userId)
                             .or().eq(StringUtils.isNotBlank(ip), ReadEntity::getIp, ip);
                 })
+                .eq(ReadEntity::getArticleId, id)
                 .ge(ReadEntity::getCreatedAt, today + " 00:00:00")
                 .le(ReadEntity::getCreatedAt, today + " 23:59:59");
         long count = readService.count(queryWrapper);
