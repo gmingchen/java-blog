@@ -78,8 +78,8 @@
     </select>
 
     <select id="queryPageByArticleId" resultMap="commentAndReplyMap">
-        SELECT c.id, c.content, c.article_id, c.user_id, c.created_at, c.author,
-        u.username, u.nickname, u.avatar, u.sex
+        SELECT c.id, c.content, c.article_id, c.user_id, c.created_at,
+        u.username, u.nickname, u.avatar, u.sex, u.author
         FROM comment AS c
         LEFT JOIN user AS u ON u.id = c.user_id
         WHERE c.article_id = #{id} AND c.deleted = 0

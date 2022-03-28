@@ -50,5 +50,13 @@ public interface CommentService extends IService<CommentEntity> {
      */
     RPage<CommentAndReplyDto> queryPageByArticleId(CommentPageVo commentPageVo);
 
+    /**
+     * 用户端-删除文章评论
+     * @param id 评论ID
+     * @param userId 用户ID
+     * @return
+     */
+    void delete(Integer id, Integer userId);
+
 }
 

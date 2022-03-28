@@ -79,4 +79,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
         );
     }
 
+    @Override
+    public void delete(Integer id, Integer userId) {
+        CommentEntity commentEntity = this.getById(id);
+        if (commentEntity == null) {
+            throw new RunException(Constant.WARNING_CODE, "该评论不存在!");
+        }
+        if (!userId.equals(commentEntity.getUserId())) {
+            throw new RunException(Constant.WARNING_CODE, "只能删除自己的评论!");
+        }
+        this.removeById(id);
+    }
+
 }

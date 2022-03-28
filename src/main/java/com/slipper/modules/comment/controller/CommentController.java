@@ -1,5 +1,6 @@
 package com.slipper.modules.comment.controller;
 
+import com.slipper.common.annotation.Login;
 import com.slipper.common.annotation.User;
 import com.slipper.common.utils.R;
 import com.slipper.common.validator.group.Create;
@@ -185,6 +186,32 @@ public class CommentController {
     @GetMapping("/client/comment/page")
     public R pageByArticleId(CommentPageVo commentPageVo){
         return R.success(commentService.queryPageByArticleId(commentPageVo));
+    }
+
+    /**
+     * 删除用户自己的评论
+     *
+     * @api {POST} /slipper/client/comment/delete delete
+     * @apiDescription 删除用户自己的评论
+     * @apiVersion 1.0.0
+     * @apiGroup Comment
+     * @apiName delete
+     * @apiParamExample 请求参数示例
+     * {
+     *     id: '' // ID
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @Login
+    @PostMapping("/client/comment/delete")
+    public R remove(@RequestBody Integer id, @User UserBasicDto user) {
+        commentService.delete(id, user.getId());
+        return R.success();
     }
 
 }

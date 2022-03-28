@@ -1,11 +1,14 @@
 package com.slipper.modules.comment.controller;
 
+import com.slipper.common.annotation.Login;
+import com.slipper.common.annotation.User;
 import com.slipper.common.utils.Constant;
 import com.slipper.common.utils.R;
 import com.slipper.modules.AbstractController;
 import com.slipper.modules.comment.entity.CommentReplyEntity;
 import com.slipper.modules.comment.model.vo.CommentReplyPageVo;
 import com.slipper.modules.comment.service.CommentReplyService;
+import com.slipper.modules.user.model.dto.UserBasicDto;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -132,6 +135,66 @@ public class CommentReplyController extends AbstractController {
     @PostMapping("/console/commentReply/delete")
     public R delete(@RequestBody List<Integer> ids) {
         commentReplyService.removeBatchByIds(ids);
+        return R.success();
+    }
+
+    /**
+     * 文章评论回复
+     *
+     * @api {POST} /slipper/client/commentReply/create create
+     * @apiDescription 文章评论回复
+     * @apiVersion 1.0.0
+     * @apiGroup CommentReply
+     * @apiName create
+     * @apiParamExample 请求参数示例
+     * {
+     *     content: '', // 内容
+     *     comment_id: '', // 留言ID
+     *     to_user_id: '', // 目标用户的ID
+     *     type: '', // 类型 0-回复 1-回复的回复
+     *     comment_reply_id: '' // 回复的ID type为 1 时须该字段
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @Login
+    @PostMapping("/client/commentReply/create")
+    public R reply(@RequestBody @Validated CommentReplyEntity commentReplyEntity, @User UserBasicDto user) {
+        if (commentReplyEntity.getType() == 1 && commentReplyEntity.getCommentReplyId() == null) {
+            return R.error(Constant.VERIFICATION_ERROR_CODE, Constant.VERIFICATION_ERROR + "comment_reply_id-文章回复ID不能为空");
+        }
+        commentReplyEntity.setFromUserId(user.getId());
+        commentReplyService.create(commentReplyEntity);
+        return R.success();
+    }
+
+    /**
+     * 删除用户自己的回复
+     *
+     * @api {POST} /slipper/client/commentReply/delete delete
+     * @apiDescription 删除用户自己的回复
+     * @apiVersion 1.0.0
+     * @apiGroup Comment
+     * @apiName delete
+     * @apiParamExample 请求参数示例
+     * {
+     *     id: '' // ID
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!'
+     * }
+     */
+    @Login
+    @PostMapping("/client/commentReply/delete")
+    public R remove(@RequestBody Integer id, @User UserBasicDto user) {
+        commentReplyService.delete(id, user.getId());
         return R.success();
     }
 

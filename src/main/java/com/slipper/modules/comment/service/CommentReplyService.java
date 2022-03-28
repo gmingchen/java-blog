@@ -28,5 +28,13 @@ public interface CommentReplyService extends IService<CommentReplyEntity> {
      */
     void create(CommentReplyEntity commentReplyEntity);
 
+    /**
+     * 用户端-删除文章回复
+     * @param id 回复ID
+     * @param userId 用户ID
+     * @return
+     */
+    void delete(Integer id, Integer userId);
+
 }
 

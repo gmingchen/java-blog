@@ -2,9 +2,12 @@ package com.slipper.modules.comment.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.slipper.common.exception.RunException;
+import com.slipper.common.utils.Constant;
 import com.slipper.common.utils.Query;
 import com.slipper.common.utils.RPage;
 import com.slipper.modules.comment.dao.CommentReplyDao;
+import com.slipper.modules.comment.entity.CommentEntity;
 import com.slipper.modules.comment.entity.CommentReplyEntity;
 import com.slipper.modules.comment.model.dto.CommentReplyDto;
 import com.slipper.modules.comment.model.vo.CommentReplyPageVo;
@@ -36,6 +39,18 @@ public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyDao, Commen
     public void create(CommentReplyEntity commentReplyEntity) {
         commentReplyEntity.setCreatedAt(new Date());
         this.save(commentReplyEntity);
+    }
+
+    @Override
+    public void delete(Integer id, Integer userId) {
+        CommentReplyEntity commentReplyEntity = this.getById(id);
+        if (commentReplyEntity == null) {
+            throw new RunException(Constant.WARNING_CODE, "该回复不存在!");
+        }
+        if (!userId.equals(commentReplyEntity.getFromUserId())) {
+            throw new RunException(Constant.WARNING_CODE, "只能删除自己的回复!");
+        }
+        this.removeById(id);
     }
 
 }
