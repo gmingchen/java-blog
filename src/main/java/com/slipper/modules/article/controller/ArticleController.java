@@ -9,6 +9,7 @@ import com.slipper.common.validator.group.Update;
 import com.slipper.common.vo.StatusVo;
 import com.slipper.modules.article.entity.ArticleEntity;
 import com.slipper.modules.article.model.vo.ArticlePageVo;
+import com.slipper.modules.article.model.vo.ArticleSearchVo;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.service.ArticleService;
 import com.slipper.modules.category.entity.CategoryEntity;
@@ -520,6 +521,54 @@ public class ArticleController {
             return R.error(Constant.VERIFICATION_ERROR_CODE, "ID不能为空");
         }
         return R.success(articleService.queryDetails(id, user != null ? user.getId() : null));
+    }
+
+    /**
+     * 文章搜索分页
+     *
+     * @api {POST} /slipper/client/article/search search
+     * @apiDescription 文章搜索分页
+     * @apiVersion 1.0.0
+     * @apiGroup Article
+     * @apiName search
+     * @apiParamExample 请求参数示例
+     * {
+     *     page: 1, // 当前页
+     *     size: 10, // 页面大小
+     *     keyword: '', // 数量
+     *     categoryId: '', // 分类ID
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: [{
+     *         id: '', // ID
+     *         title: '', // 标题
+     *         describe: '', // 简介描述
+     *         cover: '', // 封面图
+     *         category_id: '', // 分类ID
+     *         category_name: '', // 分类名称
+     *         tags: [{
+     *             id: '', // 标签ID
+     *             name: '', // 标签名称
+     *         }],
+     *         praise: '', // 点赞数量
+     *         comment: '', // 评论数量
+     *         read: '', // 阅读量
+     *         recommended: '', // 是否推荐：0-否 1-是
+     *         commentable: '', // 是否可以评论：0-否 1-是
+     *         published: '', // 是否发布：0-否 1-是
+     *         published_at: '', // 发布时间
+     *         created_at: '', // 创建时间
+     *         updated_at: '' // 更新时间
+     *     }]
+     * }
+     */
+    @GetMapping("/client/article/search")
+    public R querySearch(ArticleSearchVo articleSearchVo){
+        return R.success(articleService.querySearch(articleSearchVo));
     }
 
 }

@@ -5,6 +5,7 @@ import com.slipper.common.utils.RPage;
 import com.slipper.modules.article.entity.ArticleEntity;
 import com.slipper.modules.article.model.dto.ArticleBasicDto;
 import com.slipper.modules.article.model.dto.ArticleDto;
+import com.slipper.modules.article.model.vo.ArticleSearchVo;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.model.vo.ArticlePageVo;
 
@@ -101,6 +102,13 @@ public interface ArticleService extends IService<ArticleEntity> {
      * @return
      */
     ArticleDto queryDetails(int id, Integer userId);
+
+    /**
+     * 用户端-已发布文章分类分组分页
+     * @param articleSearchVo 分页参数
+     * @return
+     */
+    RPage<ArticleDto> querySearch(ArticleSearchVo articleSearchVo);
 
 }
 

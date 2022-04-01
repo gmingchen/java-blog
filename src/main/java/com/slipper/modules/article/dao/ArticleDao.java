@@ -104,10 +104,23 @@ public interface ArticleDao extends BaseMapper<ArticleEntity> {
     ArticleDto queryDetails(@Param("id") int id);
 
     /**
-     * 查询文章详情
+     * 用户端-查询文章详情
      * @param id ID
      * @return
      */
     void readingPlusOne(@Param("id") int id);
+
+    /**
+     * 用户端-已发布文章分类分组分页
+     * @param page 分页参数
+     * @param keyword 关键字
+     * @param categoryId 分类ID
+     * @return
+     */
+    IPage<ArticleDto> querySearch(
+            Page<ArticleDto> page,
+            @Param("keyword") String keyword,
+            @Param("categoryId") Integer categoryId
+    );
 
 }

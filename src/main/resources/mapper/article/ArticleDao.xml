@@ -144,7 +144,7 @@
         <if test="keyword != null and keyword !=''">
             AND (title LIKE "%${keyword}%" or `describe` LIKE "%${keyword}%" or content LIKE "%${keyword}%")
         </if>
-        ORDER BY recommended DESC, `read` DESC , published_at DESC
+        ORDER BY recommended DESC, `read` DESC , published_at DESC, created_at DESC
         LIMIT #{limit}
     </select>
 
@@ -165,5 +165,27 @@
         SET `read` = `read` + 1
         WHERE id = #{id}
     </update>
+
+<!--    IPage<ArticleDto> querySearch(-->
+<!--    Page<ArticleDto> page,-->
+<!--    @Param("keyword") String keyword,-->
+<!--    @Param("categoryId") Integer categoryId-->
+<!--    );-->
+    <select id="querySearch" resultMap="articleMap">
+        SELECT a.id, a.title, a.type, a.describe, a.cover, a.recommended, a.commentable, a.published, a.read, a.published_at, a.created_at, a.updated_at,
+        a.category_id, c.name AS category_name,
+        (SELECT count(*) FROM praise AS p WHERE p.article_id = a.id) AS praise,
+        (SELECT count(*) FROM comment AS c WHERE c.article_id = a.id and c.deleted = 0) AS comment
+        FROM article AS a
+        LEFT JOIN category AS c ON c.id = a.category_id
+        WHERE a.published = 1 AND a.deleted = 0
+        <if test="keyword != null and keyword !=''">
+            AND (a.title LIKE "%${keyword}%" or a.describe LIKE "%${keyword}%" or a.content LIKE "%${keyword}%")
+        </if>
+        <if test="categoryId != null">
+            AND a.category_id = #{categoryId}
+        </if>
+        ORDER BY a.category_id ASC, a.recommended DESC, a.read DESC , a.published_at DESC, a.created_at DESC
+    </select>
 
 </mapper>

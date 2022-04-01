@@ -12,6 +12,7 @@ import com.slipper.modules.article.entity.ArticleTagEntity;
 import com.slipper.modules.article.model.dto.ArticleBasicDto;
 import com.slipper.modules.article.model.dto.ArticleDto;
 import com.slipper.modules.article.model.vo.ArticlePageVo;
+import com.slipper.modules.article.model.vo.ArticleSearchVo;
 import com.slipper.modules.article.model.vo.ArticleVo;
 import com.slipper.modules.article.service.ArticleService;
 import com.slipper.modules.article.service.ArticleTagService;
@@ -161,6 +162,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
         articleDto = baseMapper.queryDetails(id);
 
         return articleDto;
+    }
+
+    @Override
+    public RPage<ArticleDto> querySearch(ArticleSearchVo articleSearchVo) {
+        Page<ArticleDto> page = new Query<ArticleDto>().getPage(articleSearchVo.getCurrent(), articleSearchVo.getSize());
+        return new RPage<>(
+            baseMapper.querySearch(
+                page,
+                articleSearchVo.getKeyword(),
+                articleSearchVo.getCategoryId()
+            )
+        );
     }
 
     /**

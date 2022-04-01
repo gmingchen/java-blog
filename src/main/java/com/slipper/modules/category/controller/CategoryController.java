@@ -229,4 +229,34 @@ public class CategoryController {
         return R.success(categoryService.list());
     }
 
+    /**
+     * 信息
+     *
+     * @api {GET} /slipper/client/category/info info
+     * @apiDescription 分类信息
+     * @apiVersion 1.0.0
+     * @apiGroup Category
+     * @apiName info
+     * @apiParamExample 请求参数示例
+     * {
+     *     id: '', // ID
+     * }
+     * @apiSuccessExample 响应结果示例
+     * {
+     *     code: 0,
+     *     status: 'success',
+     *     message: '成功!',
+     *     data: {
+     *         id: '', // ID
+     *         name: '', // 名称
+     *         created_at: '', // 创建时间
+     *         updated_at: '' // 更新时间
+     *     }
+     * }
+     */
+    @GetMapping("/client/category/info")
+    public R queryInfo(Integer id){
+        return R.success(categoryService.getById(id));
+    }
+
 }
