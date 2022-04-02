@@ -171,7 +171,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, ArticleEntity> i
             baseMapper.querySearch(
                 page,
                 articleSearchVo.getKeyword(),
-                articleSearchVo.getCategoryId()
+                articleSearchVo.getCategory()
             )
         );
     }

@@ -1,16 +1,14 @@
 package com.slipper.modules.article.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.slipper.common.vo.PageDateVo;
+import com.slipper.common.vo.PageVo;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author gumingchen
  */
 @Data
-public class ArticleSearchVo extends PageDateVo {
+public class ArticleSearchVo extends PageVo {
     /**
      * 关键字
      */
@@ -18,6 +16,5 @@ public class ArticleSearchVo extends PageDateVo {
     /**
      * 分类ID
      */
-    @JsonProperty("category_id")
-    private Integer categoryId;
+    private Integer category;
 }

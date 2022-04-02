@@ -18,10 +18,7 @@ import com.slipper.modules.category.service.CategoryService;
 import com.slipper.modules.user.entity.UserEntity;
 import com.slipper.modules.user.model.dto.UserBasicDto;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.Null;
@@ -536,7 +533,7 @@ public class ArticleController {
      *     page: 1, // 当前页
      *     size: 10, // 页面大小
      *     keyword: '', // 数量
-     *     categoryId: '', // 分类ID
+     *     category: '', // 分类ID
      * }
      * @apiSuccessExample 响应结果示例
      * {
